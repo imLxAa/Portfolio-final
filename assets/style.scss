@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'horizon';
+    src: url('fonts/Horizon.otf') format('opentype'), url('fonts/Horizon.woff2') format('woff');
+}
+
+@font-face {
+    font-family: 'horizon outline';
+    src: url('fonts/Horizon_Outlined.otf') format('opentype'), url('fonts/Horizon_Outlined.woff2') format('woff2');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.slide{
+    min-height: 100vh;
+   width: 100%;
+   position: relative;
+}
+
+#home h1{
+    font-family: "horizon";
+    position: relative;
+}
+
+
+.pex::after{
+    content: "Pixels";
+    font-family: "horizon outline";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    z-index: -1;
+}
+
+#home{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.space{
+    width: 10%;
+}
+
+.middle{
+    width: 60%;
+}
+
+.end{
+    width: 30%;
+}
