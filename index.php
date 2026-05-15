@@ -5,9 +5,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="assets/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <script src="assets/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="build/style.css">
     <title>Document</title>
 </head>
@@ -16,12 +13,22 @@
     include("partials/nav.php");
 ?>
 <div class="slide" id="home">
-    <div class="space"></div>
-    <div class="middle">
-          <div class="title">
-        <h1>Lxaa</h1>
-        <h1 class="pex">Pixels</h1>
+    <div class="space">
+        <img src="images/cross.svg" alt="cross" class="cross">
+        <div id="circles">
+            <img src="images/circle.svg" alt="circle">
+            <img src="images/circle.svg" alt="circle">
+            <img src="images/circle.svg" alt="circle">
+            <img src="images/circle.svg" alt="circle">
+        </div>
+        <img src="images/cross.svg" alt="cross" class="cross">
     </div>
+    <div class="middle">
+        <div class="title">
+            <h1>Lxaa</h1>
+            <h1 class="pex">Pixels</h1>
+            <p>Web designer / Graphic designer</p>
+        </div>
     </div>
     <div class="end"></div>
   
