@@ -71,14 +71,25 @@ $margin-menu: 40px;
 
 .end{
     width: 30%;
+    display: flex;
+    align-items: end;
+    background-image: url('../images/moi.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
 }
 
 #home h1{
-    font-size: 125px;
+    font-size: 110px;
+}
+
+#home p{
+    font-family: 'horizon', sans-serif;
+    font-size: 12px;
 }
 
 
-.main-nav {
+.main-nav{
     width: 80%;
     margin: $margin-menu auto 0;
     display: flex;
@@ -88,7 +99,7 @@ $margin-menu: 40px;
     min-height: 10vh;
 }
 
-.main-nav ul {
+.main-nav ul{
     width: 80%;
     display: flex;
     align-items: center;
@@ -109,7 +120,12 @@ $margin-menu: 40px;
 }
 
 .logo img{
-    width: 80px;
+    width: 60px;
+    height: auto;
+}
+
+.moi img{
+    width: 100%;
     height: auto;
 }
 

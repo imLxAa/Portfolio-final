@@ -25,12 +25,15 @@
     </div>
     <div class="middle">
         <div class="title">
+            <p>who am i ?</p>
             <h1>Lxaa</h1>
             <h1 class="pex">Pixels</h1>
             <p>Web designer / Graphic designer</p>
         </div>
     </div>
-    <div class="end"></div>
+    <div class="end">
+         
+    </div>
   
 </div>
 <div class="container">
