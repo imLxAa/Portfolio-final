@@ -30,11 +30,25 @@
             <h1 class="pex">Pixels</h1>
             <p>Web designer / Graphic designer</p>
         </div>
+        <div class="socials">
+            <a href="https://instagram.com/a.l.ks" target="_blank">
+                <img src="images/instagram.png" alt="instagram">
+            </a>
+            <a href="https://twitter.com/toncompte" target="_blank">
+                <img src="images/twitter.png" alt="twitter">
+            </a>
+        </div>
     </div>
     <div class="end">
          
     </div>
-  
+</div>
+<div class="slide" id="who">
+
+
+
+
+
 </div>
 <div class="container">
     <a href="https://getbootstrap.com/docs/5.3/components/card/">Liens vers documentation Boostrap</a>
