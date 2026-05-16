@@ -20,6 +20,8 @@ $margin-menu: 40px;
     min-height: 100vh;
     width: 100%;
     position: relative;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 #home h1{
@@ -82,6 +84,7 @@ $margin-menu: 40px;
 
 #home {
     position: relative;
+
 }
 
 #home .socials {
@@ -160,6 +163,50 @@ $margin-menu: 40px;
 .moi img{
     width: 100%;
     height: auto;
+}
+
+.about p{
+    font-size: 14px;
+    color: #000000;
+}
+
+.about{
+    justify-content: center;
+    padding-top: 310px;
+    font-family: horizon, sans-serif;
+    width: 100%;
+    text-align: left;
+    align-items: center;
+}
+
+.about1{
+    text-align: left;
+    margin-top: 125px;
+}
+
+.about2{
+    text-align: left;
+    margin-top: 30px;
+}
+
+.timeline{
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    font-family: horizon, sans-serif;
+    font-size: 12px;
+}
+
+.timeline img{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.year1{
+    font-size: 14px;
+    font-family: horizon, sans-serif;
 }
 
 @media all and (max-width: 760px){

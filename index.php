@@ -44,7 +44,30 @@
     </div>
 </div>
 <div class="slide" id="who">
-
+    <div class="about">
+        <p>Who am i ?</p>
+            <p class="about1">I am Alexandre / Lxaa.
+            </p>
+            <p class="about2">Graphic design student in Belgium, passionate about design and web experience.
+            </p>
+    </div>
+     <div class="timeline">
+        <img src="images/moibis.png" alt="profile">
+        <div class="year">
+            <h4>2023</h4>
+            <p>First year of computer graphics</p>
+        </div>
+        <div class="year">
+            <h4>2024</h4>
+            <p>Beginning portfolio</p>
+        </div>
+        <div class="year1">
+            <h4>Future</h4>
+            <p>UX / Interactive portfolio</p>
+        </div>
+    </div>
+</div>
+    
 
 
 
