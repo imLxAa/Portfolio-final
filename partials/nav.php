@@ -27,7 +27,7 @@
             <div class="socials">
                 <a href="#">Facebook</a>
                 <a href="#">Instagram</a>
-                <a href="#">LinkedIn</a>
+                <a href="#">X</a>
             </div>
             <span class="panel-year">&copy; 2026</span>
         </div>

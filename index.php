@@ -14,7 +14,7 @@
 ?>
 <div class="slide" id="home">
     <div class="space left-space">
-        <img src="images/cross.svg" alt="cross" class="cross">
+        <img src="images/cross.svg" alt="cross" class="cross top-cross">
         <div id="circles">
             <img src="images/circle.svg" alt="circle">
             <img src="images/circle.svg" alt="circle">
@@ -25,13 +25,7 @@
     </div>
     <div class="space right-space">
         <img src="images/cross.svg" alt="cross" class="cross">
-        <div id="circles">
-            <img src="images/circle.svg" alt="circle">
-            <img src="images/circle.svg" alt="circle">
-            <img src="images/circle.svg" alt="circle">
-            <img src="images/circle.svg" alt="circle">
-        </div>
-        <img src="images/cross.svg" alt="cross" class="cross">
+        <img src="images/cross.svg" alt="cross" class="bottom-cross">
     </div>
     <div class="middle">
         <div class="title">
@@ -50,7 +44,6 @@
         </div>
     </div>
     <div class="end">
-         
     </div>
 </div>
 <section class="about">
@@ -89,7 +82,7 @@
     <div class="gallery">
         <?php
         require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
+        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
         while($don = $req->fetch())
         {
             echo '<div class="col-lg-3 col-md-4 col-sm-6">';
@@ -124,7 +117,7 @@
     <div class="gallery">
         <?php
         require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
+        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
         while($don = $req->fetch())
         {
             echo '<div class="col-lg-3 col-md-4 col-sm-6">';
@@ -159,7 +152,7 @@
     <div class="gallery">
         <?php
         require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
+        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
         while($don = $req->fetch())
         {
             echo '<div class="col-lg-3 col-md-4 col-sm-6">';
@@ -194,7 +187,7 @@
     <div class="gallery">
         <?php
         require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
+        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
         while($don = $req->fetch())
         {
             echo '<div class="col-lg-3 col-md-4 col-sm-6">';
@@ -229,7 +222,7 @@
     <div class="gallery">
         <?php
         require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
+        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
         while($don = $req->fetch())
         {
             echo '<div class="col-lg-3 col-md-4 col-sm-6">';
@@ -256,10 +249,10 @@
 </div>
 </section>
 
-<div class="slide" id="contact">
-    <div class="gauche"></div>
-    <div class="droite">
-        <h3>Contact</h3>
+<section class="slide" id="contact">
+    <div class="contact-container">
+        <h3 class="contact-title">Contact</h3>
+        <p class="contact-description">Available for interships, freelance projects or collaborations.</p>
         <?php
             if(isset($_GET['success']))
             {
@@ -272,25 +265,22 @@
             }
 
         ?>
-        <form action="treatmentContact.php" method="POST">
+        <form action="treatmentContact.php" method="POST" class="contact-form">
             <div class="form-group">
-                <label for="nom">Nom: </label>
-                <input type="text" name="nom" id="nom">
+                <input type="text" name="nom" placeholder="nom">
             </div>
             <div class="form-group">
-                <label for="email">E-mail: </label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" placeholder="e-mail">
             </div>
             <div class="form-group">
-                <label for="message">Message: </label>
-                <textarea name="message" id="message"></textarea>
+                <textarea name="message" id="message" placeholder="message"></textarea>
             </div>
             <div class="form-group">
-                <input type="submit" value="Envoyer">
+                <input type="submit" value="Submit">
             </div>
         </form>
     </div>
-</div>
+</section>
 
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
 

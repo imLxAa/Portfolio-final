@@ -40,7 +40,9 @@ body{
     position: relative;
     min-height: 100vh;
     overflow: hidden;
+    justify-content: center;
 }
+
 
 #home h1{
     font-family: "horizon";
@@ -117,11 +119,11 @@ body{
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
+    height: 70vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 25px;
-
     z-index: 10;
 }
 
@@ -138,7 +140,9 @@ body{
 
 }
 
-.space #circles{
+
+
+#circles{
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -174,6 +178,9 @@ body{
     font-family: 'syne', sans-serif;
     font-weight: 800;
     letter-spacing: -0.02rem;
+    z-index: 1000;
+    font-size: 18px;
+
 }
 
 .main-nav ul.hide{
@@ -190,7 +197,7 @@ body{
     justify-content: space-evenly;
     list-style: none;
     transition: transform 0.3s ease;
-        transition: 0.3s;
+    transition: 0.3s;
 }
 .main-nav ul li a {
     text-decoration: none;
@@ -270,7 +277,6 @@ body{
 
 /**NAV**/
 
-
 nav {
     position: fixed;
     top: 0;
@@ -282,8 +288,6 @@ nav {
     z-index: 200;
     width: 100%;
 }
-
-
 
 #burger{
     width: 36px;
@@ -521,11 +525,12 @@ nav {
     max-width: 1100px;
     box-shadow: 3px 3px 3px rgba(0,0,0,0.2);;
     border-radius: 20px;
-    padding: 30px 40px;
+    padding: 70px 40px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
 
 .tool-icon img {
   width: 50px;
@@ -593,7 +598,116 @@ nav {
   transform: translateX(3px);
 }
 
+// CONTACT
 
+#contact{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:120px 20px;
+}
+
+/* CONTAINER */
+
+.contact-container{
+    width:100%;
+    max-width:900px;
+}
+
+.contact-title{
+    text-align:center;
+    font-size: 24px;
+    font-weight:800;
+    margin-bottom:20px;
+    color:#000;
+    font-family:'horizon', sans-serif;
+    text-transform:uppercase;
+}
+
+.contact-description{
+    text-align:center;
+    font-size:18px;
+    margin-bottom:50px;
+    font-family:'montserrat', sans-serif;
+}
+
+
+.contact-form{
+    width:100%;
+    justify-content: center;
+}
+
+.form-group{
+    margin-bottom:25px;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+    padding:35px;
+    border:1px solid #00000067;
+    border-radius:25px;
+    background:transparent;
+    font-size:18px;
+    font-weight:700;
+    transition:0.3s ease;
+    font-family:'montserrat', sans-serif;
+}
+
+/* PLACEHOLDER */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+    color:#777;
+    text-transform:uppercase;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    border-color:#000;
+}
+
+.form-group textarea{
+    height:320px;
+    resize:none;
+}
+
+.form-group input[type="submit"]{
+    background:#000;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    transition:0.3s ease;
+}
+
+.form-group input[type="submit"]:hover{
+    background:#222;
+    transform:translateY(-3px);
+}
+
+.message-success{
+    background:#d4edda;
+    color:#155724;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:30px;
+    text-align:center;
+    font-family:'montserrat', sans-serif;
+}
+
+.message-error{
+    background:#f8d7da;
+    color:#721c24;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:30px;
+    text-align:center;
+    font-family:'montserrat', sans-serif;
+}
 
 /* Responsive */
 
@@ -614,6 +728,4 @@ nav {
     .main-nav ul{
         display: none;
     }
-}
-
 }

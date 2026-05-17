@@ -40,7 +40,7 @@ gsap.to(".end", {
     }
 });
 
-gsap.to(".space", {
+gsap.to("space", {
 
     y: -100,
     rotate: 10,
