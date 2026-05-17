@@ -13,7 +13,17 @@
     include("partials/nav.php");
 ?>
 <div class="slide" id="home">
-    <div class="space">
+    <div class="space left-space">
+        <img src="images/cross.svg" alt="cross" class="cross">
+        <div id="circles">
+            <img src="images/circle.svg" alt="circle">
+            <img src="images/circle.svg" alt="circle">
+            <img src="images/circle.svg" alt="circle">
+            <img src="images/circle.svg" alt="circle">
+        </div>
+        <img src="images/cross.svg" alt="cross" class="cross">
+    </div>
+    <div class="space right-space">
         <img src="images/cross.svg" alt="cross" class="cross">
         <div id="circles">
             <img src="images/circle.svg" alt="circle">
@@ -25,7 +35,7 @@
     </div>
     <div class="middle">
         <div class="title">
-            <p>who am i ?</p>
+            <p>Who am I ?</p>
             <h1>Lxaa</h1>
             <h1 class="pex">Pixels</h1>
             <p>Web designer / Graphic designer</p>
@@ -43,39 +53,40 @@
          
     </div>
 </div>
-<div class="slide" id="who">
-    <div class="about">
-        <p>Who am i ?</p>
-            <p class="about1">I am Alexandre / Lxaa.
-            </p>
-            <p class="about2">Graphic design student in Belgium, passionate about design and web experience.
-            </p>
+<section class="about">
+    <h5>WHO AM I ?</h5>
+    <p class="intro">
+        I am Alexandre / Lxaa. <br>
+        Graphic design student in Belgium, passionate about design and web experience.
+    </p>
+    <div class="about-flex">
+        <div class="left">
+            <img src="images/moipetit.jpg" alt="portrait" class="portrait">
+        </div>
+        <div class="right">
+            <div class="year">
+                <p>•2023</p>
+                <p>First year of computer graphics</p>
+            </div>
+            <div class="year">
+                <p>•2024</p>
+                <p>Beginning portfolio</p>
+            </div>
+            <div class="year">
+                <p>•FUTUR</p>
+                <p>Portfolios interactifs / UX</p>
+            </div>
+        </div>
     </div>
-     <div class="timeline">
-        <img src="images/moibis.png" alt="profile">
-        <div class="year">
-            <h4>2023</h4>
-            <p>First year of computer graphics</p>
-        </div>
-        <div class="year">
-            <h4>2024</h4>
-            <p>Beginning portfolio</p>
-        </div>
-        <div class="year1">
-            <h4>Future</h4>
-            <p>UX / Interactive portfolio</p>
-        </div>
+</section>
+
+<section class="tools-section">
+  <h1 class="tools-title">TOOLS</h1>
+  <div class="tool-card">
+    <div class="tool-icon">
+      <img src="images/photoshop.png" alt="Photoshop" />
     </div>
-</div>
-    
-
-
-
-
-</div>
-<div class="container">
-    <a href="https://getbootstrap.com/docs/5.3/components/card/">Liens vers documentation Boostrap</a>
-    <div class="row">
+    <div class="gallery">
         <?php
         require "config/connexion.php";
         $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
@@ -96,10 +107,155 @@
         $req->closeCursor();
         ?>
     </div>
-    <div class="d-flex justify-content-center my-5">
-        <a href="categories.php" class="btn btn-primary">Voir plus</a>
-    </div>
+    <div id="view">
+  <a href="categories.php" class="view-more">
+    View more
+    <span class="arrow">›</span>
+  </a>
 </div>
+</div>
+</section>
+<section class="tools-section">
+  <h1 class="tools-title">TOOLS</h1>
+  <div class="tool-card">
+    <div class="tool-icon">
+      <img src="images/illustrator.png" alt="Illustrator" />
+    </div>
+    <div class="gallery">
+        <?php
+        require "config/connexion.php";
+        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
+        while($don = $req->fetch())
+        {
+            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
+                echo '<div class="card my-3">';
+                    echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
+                    echo ' <div class="card-body">';
+                        echo '<h5 class="card-title">'.$don['pname'].'</h5>';
+                        echo '<a href="category.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
+                        echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
+                        echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
+                    echo '</div>';
+                echo '</div>';
+            echo '</div>';
+        }
+        $req->closeCursor();
+        ?>
+    </div>
+    <div id="view">
+  <a href="categories.php" class="view-more">
+    View more
+    <span class="arrow">›</span>
+  </a>
+</div>
+</div>
+</section>
+<section class="tools-section">
+  <h1 class="tools-title">TOOLS</h1>
+  <div class="tool-card">
+    <div class="tool-icon">
+      <img src="images/indesign.png" alt="Indesign" />
+    </div>
+    <div class="gallery">
+        <?php
+        require "config/connexion.php";
+        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
+        while($don = $req->fetch())
+        {
+            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
+                echo '<div class="card my-3">';
+                    echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
+                    echo ' <div class="card-body">';
+                        echo '<h5 class="card-title">'.$don['pname'].'</h5>';
+                        echo '<a href="category.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
+                        echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
+                        echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
+                    echo '</div>';
+                echo '</div>';
+            echo '</div>';
+        }
+        $req->closeCursor();
+        ?>
+    </div>
+    <div id="view">
+  <a href="categories.php" class="view-more">
+    View more
+    <span class="arrow">›</span>
+  </a>
+</div>
+</div>
+</section>
+<section class="tools-section">
+  <h1 class="tools-title">TOOLS</h1>
+  <div class="tool-card">
+    <div class="tool-icon">
+      <img src="images/procreate.png" alt="Procreate" />
+    </div>
+    <div class="gallery">
+        <?php
+        require "config/connexion.php";
+        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
+        while($don = $req->fetch())
+        {
+            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
+                echo '<div class="card my-3">';
+                    echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
+                    echo ' <div class="card-body">';
+                        echo '<h5 class="card-title">'.$don['pname'].'</h5>';
+                        echo '<a href="category.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
+                        echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
+                        echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
+                    echo '</div>';
+                echo '</div>';
+            echo '</div>';
+        }
+        $req->closeCursor();
+        ?>
+    </div>
+    <div id="view">
+  <a href="categories.php" class="view-more">
+    View more
+    <span class="arrow">›</span>
+  </a>
+</div>
+</div>
+</section>
+<section class="tools-section">
+  <h1 class="tools-title">TOOLS</h1>
+  <div class="tool-card">
+    <div class="tool-icon">
+      <img src="images/procreatedreams.png" alt="Procreate Dreams" />
+    </div>
+    <div class="gallery">
+        <?php
+        require "config/connexion.php";
+        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,4");
+        while($don = $req->fetch())
+        {
+            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
+                echo '<div class="card my-3">';
+                    echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
+                    echo ' <div class="card-body">';
+                        echo '<h5 class="card-title">'.$don['pname'].'</h5>';
+                        echo '<a href="category.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
+                        echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
+                        echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
+                    echo '</div>';
+                echo '</div>';
+            echo '</div>';
+        }
+        $req->closeCursor();
+        ?>
+    </div>
+    <div id="view">
+  <a href="categories.php" class="view-more">
+    View more
+    <span class="arrow">›</span>
+  </a>
+</div>
+</div>
+</section>
+
 <div class="slide" id="contact">
     <div class="gauche"></div>
     <div class="droite">
@@ -135,5 +291,64 @@
         </form>
     </div>
 </div>
+
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<script src="script.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+
+<script>
+        const burger = document.getElementById("burger");
+        const panel = document.getElementById("panel");
+        const overlay = document.getElementById("overlay");
+
+        function openMenu() {
+            burger.classList.add("open");
+            panel.classList.add("open");
+            overlay.classList.add("open");
+
+            // gestion inclusive
+            burger.setAttribute("aria-expanded", "true");
+            panel.setAttribute("aria-hidden", "false");
+
+            // éviter le scroll
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeMenu() {
+            burger.classList.remove("open");
+            panel.classList.remove("open");
+            overlay.classList.remove("open");
+            burger.setAttribute("aria-expanded", "false");
+            panel.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+        }
+
+        // fonction fléchée () => {}
+        burger.addEventListener("click", () => {
+            if( burger.classList.contains("open"))
+            {
+                closeMenu();
+            }else{
+                openMenu();
+            }
+        });
+
+        overlay.addEventListener("click", closeMenu);
+
+        document.addEventListener("click", "keydown", (e) => {
+            if(e.key === "Escape") {
+                closeMenu();
+            }
+        });
+
+    </script>
+
+
 </body>
 </html>
