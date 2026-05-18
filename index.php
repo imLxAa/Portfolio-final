@@ -5,8 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="build/style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="build/style.css" href="https://jsdelivr.net">
+    <title>LxaaPortfolio</title>
 </head>
 <body>
 <?php
@@ -36,14 +36,7 @@
     <h1 class="pex">Pixels</h1>
 
     <p class="job">Web designer / Graphic designer</p>
-</div>
-        <div class="socials">
-            <a href="https://instagram.com/a.l.ks" target="_blank">
-                <img src="images/instagram.png" alt="instagram">
-            </a>
-            <a href="https://twitter.com/toncompte" target="_blank">
-                <img src="images/twitter.png" alt="twitter">
-            </a>
+
         </div>
     </div>
     <div class="end">
@@ -77,13 +70,12 @@
 </section>
 
 
-<section class="tools-section">
+<section class="tools-section" id="tools">
   <h1 class="tools-title">TOOLS</h1>
   <div class="tool-card">
     <div class="gallery">
         <?php
         require "config/connexion.php";
-    
         $req = $bdd->query("SELECT * FROM skills");
         while($don = $req->fetch())
         {
@@ -98,9 +90,10 @@
         }
         $req->closeCursor();
 
-        // req pour dernière compétences
-        // $works = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,6");
-      
+        
+        //req pour dernière compétences
+        
+        $works = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,6");
         ?>
     </div>
     <div id="view">
@@ -150,14 +143,12 @@
 
 
 <footer id="footer">
-
     <div class="footer-content">
-
         <h2 class="footer-logo">
-            Lxaa<span>®</span>
+            Lxaa<span>&copy;</span>
         </h2>
         <h1 class="footer-title">
-            Web Designer
+            Web Designer,
         </h1>
         <h1 class="footer-subtitle">
             Graphic Designer
@@ -181,6 +172,8 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrambleTextPlugin.min.js"></script>
 
 <script src="script.js"></script>
 
