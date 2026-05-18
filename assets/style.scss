@@ -92,9 +92,15 @@ body{
     letter-spacing: -0.02rem;
 }
 
+
 .title{
     text-align: right;
 }
+
+.title p{
+    margin-bottom: 20px;
+}
+
 .pex::after{
     content: "Pixels";
     font-family: "horizon outline";
@@ -162,6 +168,9 @@ body{
     background-repeat: no-repeat;
     background-size: 80%;
     background-position: right bottom;
+    will-change: transform, filter;
+    transform-origin: center;
+    backface-visibility: hidden;
 }
 .socials{
     width: 100%;
@@ -230,12 +239,17 @@ body{
     width: 100%;
     height: auto;
 }
+
+.reveal-left{
+    will-change: transform, opacity, filter;
+}
+
 .about {
-    padding-top: 230px ;
+   padding-top: 100px;
     text-align: center;
 }
 
-.intro {
+.introduction {
     max-width: 800px;
     margin: 0 auto 70px;
     line-height: 1.6;

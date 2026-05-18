@@ -28,12 +28,15 @@
         <img src="images/cross.svg" alt="cross" class="bottom-cross">
     </div>
     <div class="middle">
-        <div class="title">
-            <p>Who am I ?</p>
-            <h1>Lxaa</h1>
-            <h1 class="pex">Pixels</h1>
-            <p>Web designer / Graphic designer</p>
-        </div>
+            <div class="title">
+    <p class="intro">Who am I ?</p>
+
+    <h1 class="name">Lxaa</h1>
+
+    <h1 class="pex">Pixels</h1>
+
+    <p class="job">Web designer / Graphic designer</p>
+</div>
         <div class="socials">
             <a href="https://instagram.com/a.l.ks" target="_blank">
                 <img src="images/instagram.png" alt="instagram">
@@ -46,9 +49,9 @@
     <div class="end">
     </div>
 </div>
-<section class="about">
+<section class="about reveal-left" id="about">
     <h5>WHO AM I ?</h5>
-    <p class="intro">
+    <p class="introduction">
         I am Alexandre / Lxaa. <br>
         Graphic design student in Belgium, passionate about design and web experience.
     </p>
@@ -73,31 +76,31 @@
     </div>
 </section>
 
+
 <section class="tools-section">
   <h1 class="tools-title">TOOLS</h1>
   <div class="tool-card">
-    <div class="tool-icon">
-      <img src="images/photoshop.png" alt="Photoshop" />
-    </div>
     <div class="gallery">
         <?php
         require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
+    
+        $req = $bdd->query("SELECT * FROM skills");
         while($don = $req->fetch())
         {
             echo '<div class="col-lg-3 col-md-4 col-sm-6">';
                 echo '<div class="card my-3">';
-                    echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
+                    echo '<img src="images/'.$don['image'].'" class="card-img-top" alt="image de '.$don['nom'].'">';
                     echo ' <div class="card-body">';
-                        echo '<h5 class="card-title">'.$don['pname'].'</h5>';
-                        echo '<a href="category.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
-                        echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
-                        echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
+                        echo '<h5 class="card-title">'.$don['nom'].'</h5>';
                     echo '</div>';
                 echo '</div>';
             echo '</div>';
         }
         $req->closeCursor();
+
+        // req pour dernière compétences
+        // $works = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,6");
+      
         ?>
     </div>
     <div id="view">
@@ -108,146 +111,9 @@
 </div>
 </div>
 </section>
-<section class="tools-section">
-  <h1 class="tools-title">TOOLS</h1>
-  <div class="tool-card">
-    <div class="tool-icon">
-      <img src="images/illustrator.png" alt="Illustrator" />
-    </div>
-    <div class="gallery">
-        <?php
-        require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
-        while($don = $req->fetch())
-        {
-            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
-                echo '<div class="card my-3">';
-                    echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
-                    echo ' <div class="card-body">';
-                        echo '<h5 class="card-title">'.$don['pname'].'</h5>';
-                        echo '<a href="category.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
-                        echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
-                        echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
-                    echo '</div>';
-                echo '</div>';
-            echo '</div>';
-        }
-        $req->closeCursor();
-        ?>
-    </div>
-    <div id="view">
-  <a href="categories.php" class="view-more">
-    View more
-    <span class="arrow">›</span>
-  </a>
-</div>
-</div>
-</section>
-<section class="tools-section">
-  <h1 class="tools-title">TOOLS</h1>
-  <div class="tool-card">
-    <div class="tool-icon">
-      <img src="images/indesign.png" alt="Indesign" />
-    </div>
-    <div class="gallery">
-        <?php
-        require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
-        while($don = $req->fetch())
-        {
-            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
-                echo '<div class="card my-3">';
-                    echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
-                    echo ' <div class="card-body">';
-                        echo '<h5 class="card-title">'.$don['pname'].'</h5>';
-                        echo '<a href="category.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
-                        echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
-                        echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
-                    echo '</div>';
-                echo '</div>';
-            echo '</div>';
-        }
-        $req->closeCursor();
-        ?>
-    </div>
-    <div id="view">
-  <a href="categories.php" class="view-more">
-    View more
-    <span class="arrow">›</span>
-  </a>
-</div>
-</div>
-</section>
-<section class="tools-section">
-  <h1 class="tools-title">TOOLS</h1>
-  <div class="tool-card">
-    <div class="tool-icon">
-      <img src="images/procreate.png" alt="Procreate" />
-    </div>
-    <div class="gallery">
-        <?php
-        require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
-        while($don = $req->fetch())
-        {
-            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
-                echo '<div class="card my-3">';
-                    echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
-                    echo ' <div class="card-body">';
-                        echo '<h5 class="card-title">'.$don['pname'].'</h5>';
-                        echo '<a href="category.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
-                        echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
-                        echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
-                    echo '</div>';
-                echo '</div>';
-            echo '</div>';
-        }
-        $req->closeCursor();
-        ?>
-    </div>
-    <div id="view">
-  <a href="categories.php" class="view-more">
-    View more
-    <span class="arrow">›</span>
-  </a>
-</div>
-</div>
-</section>
-<section class="tools-section">
-  <h1 class="tools-title">TOOLS</h1>
-  <div class="tool-card">
-    <div class="tool-icon">
-      <img src="images/procreatedreams.png" alt="Procreate Dreams" />
-    </div>
-    <div class="gallery">
-        <?php
-        require "config/connexion.php";
-        $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,3");
-        while($don = $req->fetch())
-        {
-            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
-                echo '<div class="card my-3">';
-                    echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
-                    echo ' <div class="card-body">';
-                        echo '<h5 class="card-title">'.$don['pname'].'</h5>';
-                        echo '<a href="category.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
-                        echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
-                        echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
-                    echo '</div>';
-                echo '</div>';
-            echo '</div>';
-        }
-        $req->closeCursor();
-        ?>
-    </div>
-    <div id="view">
-  <a href="categories.php" class="view-more">
-    View more
-    <span class="arrow">›</span>
-  </a>
-</div>
-</div>
-</section>
+
+
+
 
 <section class="slide" id="contact">
     <div class="contact-container">
@@ -282,15 +148,14 @@
     </div>
 </section>
 
-<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
 <script src="script.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 
 <script>
         const burger = document.getElementById("burger");
@@ -336,7 +201,7 @@
                 closeMenu();
             }
         });
-
+        
     </script>
 
 

@@ -30,7 +30,15 @@ gsap.to(".middle", {
 
 gsap.to(".end", {
 
-    y: 150,
+    x: 400,
+    rotate: 3,
+    scale: 0.95,
+
+    filter: "blur(12px)",
+
+    opacity: 0.2,
+
+    ease: "none",
 
     scrollTrigger: {
         trigger: "#home",
@@ -38,6 +46,7 @@ gsap.to(".end", {
         end: "bottom top",
         scrub: true
     }
+
 });
 
 gsap.to("space", {
@@ -59,5 +68,23 @@ function raf(time) {
     lenis.raf(time);
     requestAnimationFrame(raf);
 }
+requestAnimationFrame
 
+gsap.from(".about", {
+
+    x: -300,
+    opacity: 0,
+    filter: "blur(10px)",
+
+    ease: "none",
+
+    scrollTrigger: {
+        trigger: ".about",
+        start: "top 85%",
+        end: "top 30%",
+
+        scrub: 1
+    }
+
+});
 requestAnimationFrame(raf);
