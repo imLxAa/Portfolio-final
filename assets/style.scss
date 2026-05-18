@@ -258,7 +258,10 @@ body{
     width: 140px;
     height: 140px;
     border-radius: 14px;
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+    box-shadow: 
+    0 2px 4px rgba(0,0,0,0.04),
+    0 10px 30px rgba(0,0,0,0.08),
+    0 20px 40px rgba(0,0,0,0.04);
 }
 
 .right {
@@ -523,7 +526,10 @@ nav {
     border-radius: 20px;
     border: 1px solid #00000067;
     max-width: 1100px;
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.2);;
+    box-shadow:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 10px 30px rgba(0,0,0,0.08),
+    0 20px 40px rgba(0,0,0,0.04);
     border-radius: 20px;
     padding: 70px 40px;
     width: 100%;
@@ -611,13 +617,15 @@ nav {
 /* CONTAINER */
 
 .contact-container{
-    width:100%;
-    max-width:900px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+
 }
 
 .contact-title{
     text-align:center;
-    font-size: 24px;
+    font-size: 16px;
     font-weight:800;
     margin-bottom:20px;
     color:#000;
@@ -627,8 +635,8 @@ nav {
 
 .contact-description{
     text-align:center;
-    font-size:18px;
-    margin-bottom:50px;
+    font-size:16px;
+    margin-bottom:35px;
     font-family:'montserrat', sans-serif;
 }
 
@@ -640,23 +648,26 @@ nav {
 
 .form-group{
     margin-bottom:25px;
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
 }
 
 .form-group input,
 .form-group textarea{
     width:100%;
-    padding:35px;
+    padding:12px 20px;
     border:1px solid #00000067;
-    border-radius:25px;
+    box-shadow:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 10px 30px rgba(0,0,0,0.08),
+    0 20px 40px rgba(0,0,0,0.04);
+  border-radius:12px;
     background:transparent;
-    font-size:18px;
+    font-size:14px;
     font-weight:700;
     transition:0.3s ease;
     font-family:'montserrat', sans-serif;
+    resize: none;
+    overflow-y: auto;
 }
-
-/* PLACEHOLDER */
 
 .form-group input::placeholder,
 .form-group textarea::placeholder{
@@ -671,7 +682,6 @@ nav {
 
 .form-group textarea{
     height:320px;
-    resize:none;
 }
 
 .form-group input[type="submit"]{
