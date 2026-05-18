@@ -148,6 +148,34 @@
     </div>
 </section>
 
+
+<footer id="footer">
+
+    <div class="footer-content">
+
+        <h2 class="footer-logo">
+            Lxaa<span>®</span>
+        </h2>
+        <h1 class="footer-title">
+            Web Designer
+        </h1>
+        <h1 class="footer-subtitle">
+            Graphic Designer
+        </h1>
+        <div class="footer-links">
+            <a href="https://instagram.com/a.l.ks">Instagram</a>
+            <span>|</span>
+            <a href="https://x.com/LxaaStudio">X</a>
+            <span>|</span>
+            <a href="#">E-mail</a>
+            <span>|</span>
+            <a href="#">Website</a>
+
+        </div>
+
+</footer>
+
+
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>

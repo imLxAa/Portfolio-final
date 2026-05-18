@@ -733,6 +733,80 @@ nav {
     font-family:'montserrat', sans-serif;
 }
 
+
+//footer 
+
+#footer{
+    min-height:100vh;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:80px 40px;
+    overflow:hidden;
+    width:100%;
+    clear:both;
+}
+
+.footer-content{
+    width:100%;
+    text-align: left;
+    padding-left: 200px;
+}
+
+.footer-logo{
+    font-size:150px;
+    color:#fff;
+    font-family:'syne', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02rem;
+}
+
+.footer-logo span{
+    vertical-align:top;
+    font-size: 60px;
+    letter-spacing: -2rem;
+}
+
+.footer-title{
+    font-size:180px;
+    line-height:0.9;
+    color:#EAEAEA;
+    font-family:'montserrat', sans-serif;
+    font-weight: 200;
+}
+
+.footer-subtitle{
+    font-size:180px;
+    line-height:0.9;
+    color:#a0a0a0;
+    font-family:'montserrat', sans-serif;
+    font-weight: 200;
+    margin-bottom:80px;
+}
+
+/* LINKS */
+
+.footer-links{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    font-size:18px;
+}
+
+.footer-links a,
+.footer-links span{
+    color:#666;
+    text-decoration:none;
+    font-family:'montserrat', sans-serif;
+    transition:0.3s ease;
+}
+
+.footer-links a:hover{
+    color:#fff;
+}
+
+
 /* Responsive */
 
 @media all and (max-width: 760px){
