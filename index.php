@@ -105,9 +105,6 @@
 </div>
 </section>
 
-
-
-
 <section class="slide" id="contact">
     <div class="contact-container">
         <h3 class="contact-title">Contact</h3>
@@ -134,9 +131,12 @@
             <div class="form-group">
                 <textarea name="message" id="message" placeholder="message"></textarea>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Submit">
-            </div>
+            <button class="btn-17">
+        <span class="text-container">
+            <span class="text">Submit</span>
+        </span>
+</button>
+
         </form>
     </div>
 </section>

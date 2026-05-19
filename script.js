@@ -72,7 +72,7 @@ gsap.from(".about", {
     rotate: -2,
     filter: "blur(6px)",
     duration: 1.8,
-    ease: "expo.out",
+    ease: "power3.out",
     scrollTrigger: {
     trigger: ".about",
     start: "top 30%",
@@ -134,20 +134,6 @@ window.addEventListener("load", () => {
 
     /* DECORATIONS */
 
-    tl.from(".cross, .bottom-cross", {
-        opacity: 0,
-        rotate: 90,
-        scale: 0.7,
-        duration: 1.2,
-        ease: "power4.out"
-    }, "-=0.7")
-
-    .from("#circles", {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: "power3.out"
-    }, "-=1");
 
     /* IMAGE */
 
@@ -156,7 +142,7 @@ window.addEventListener("load", () => {
         opacity: 0,
         filter: "blur(10px)",
         duration: 1.4,
-        ease: "power4.out"
+        ease: "power3.out"
     }, "-=0.8");
 
     /* TITRE */
@@ -166,17 +152,8 @@ window.addEventListener("load", () => {
         opacity: 0,
         filter: "blur(10px)",
         duration: 1.2,
-        ease: "power4.out"
+        ease: "power3.out"
     }, "-=1");
-
-    /* SOCIALS */
-
-    tl.from(".socials", {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out"
-    }, "-=0.8");
 
 });
 window.addEventListener("load", () => {
@@ -192,7 +169,7 @@ gsap.from(".tool-card", {
     rotate: 2,
     filter: "blur(6px)",
     duration: 1.3,
-    ease: "expo.out",
+    ease:  "power3.out",
     scrollTrigger: {
     trigger: ".tools-section",
     start: "top 45%",
@@ -207,7 +184,7 @@ gsap.from(".tools-title", {
     rotate: 2,
     filter: "blur(6px)",
     duration: 1.3,
-    ease: "expo.out",
+    ease:  "power3.out",
     scrollTrigger: {
     trigger: ".tools-section",
     start: "top 45%",
@@ -215,3 +192,129 @@ gsap.from(".tools-title", {
     scrub: 1
     }
 });
+
+gsap.from("#footer", {
+    y: 120,
+    scale: 0.985,
+    filter: "blur(12px)",
+
+    scrollTrigger: {
+        trigger: "#footer",
+        start: "top 92%",
+        end: "top 65%",
+        scrub: 0.8
+    }
+});
+
+gsap.from(".footer-logo", {
+    width: 0,
+    duration: 1.8,
+    ease: "steps(5)",
+
+    scrollTrigger: {
+        trigger: "#footer",
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+    }
+});
+
+
+const contactTl = gsap.timeline({
+    scrollTrigger: {
+        trigger: "#contact",
+        start: "top 55%",
+        end: "top 10%",
+        scrub: 1.2
+    }
+});
+
+
+/* TITLE */
+
+contactTl.from(".contact-title", {
+
+    y: 60,
+    opacity: 0,
+    filter: "blur(10px)",
+    duration: 1.4,
+    ease:  "power3.out"
+
+});
+
+
+/* DESCRIPTION */
+
+contactTl.from(".contact-description", {
+
+    y: 40,
+    opacity: 0,
+    filter: "blur(10px)",
+    duration: 1.5,
+    ease: "power3.out"
+
+}, "-=0.8");
+
+contactTl.from(".form-group:nth-child(1)", {
+
+    x: -180,
+    opacity: 0,
+    filter: "blur(10px)",
+    duration: 1.7,
+    ease: "power3.out"
+
+}, "-=0.3")
+
+
+.from(".form-group:nth-child(2)", {
+
+    x: 180,
+    opacity: 0,
+    filter: "blur(10px)",
+    duration: 1.8,
+    ease: "power3.out"
+
+}, "-=1.1")
+
+
+.from(".form-group:nth-child(3)", {
+
+    x: -180,
+    opacity: 0,
+    filter: "blur(10px)",
+    duration: 1.9,
+    ease: "power3.out"
+
+}, "-=1.1");
+/* BUTTON */
+
+contactTl.from(".btn-17", {
+
+    y: 80,
+    opacity: 0,
+    scale: 0.9,
+    filter: "blur(10px)",
+    duration: 2,
+    ease: "power3.out",
+    start: "top 50%",
+    end: "top 10%",
+
+}, "-=0.8");
+
+setTimeout(() => {
+
+    gsap.to(".message-success", {
+
+        opacity: 0,
+        y: -15,
+        scale: 0.96,
+        filter: "blur(12px)",
+
+        duration: 1.1,
+        ease: "power3.out",
+
+        onComplete: () => {
+            document.querySelector(".message-success").style.display = "none";
+        }
+    });
+
+}, 3000);
