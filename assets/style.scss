@@ -138,10 +138,6 @@ body{
     width: 50px;
 }
 
-    
-
-
-
 #circles{
     display: flex;
     flex-direction: column;
@@ -205,18 +201,26 @@ body{
     transition: transform 0.3s ease;
     transition: 0.3s;
 }
+/* RESET ultra propre */
 .main-nav ul li a {
-    text-decoration: none;
-    color: #000;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    transition: opacity 0.3s;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #000;
+  transition: 
+    transform .25s ease,
+    opacity .25s ease,
+    filter .25s ease;
 }
 
-.main-nav a:hover{
-    opacity: 0.6;
+.main-nav ul li a:hover {
+  transform: translateY(-1px);
+  opacity: 0.75;
+  filter: blur(0.7px); 
 }
+
+
 
 .logo{
     font-family: 'syne', sans-serif;

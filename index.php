@@ -50,7 +50,7 @@
     </p>
     <div class="about-flex">
         <div class="left">
-            <img src="images/moipetit.jpg" alt="portrait" class="portrait">
+            <img src="images/moipetit.jpg" class="portrait">
         </div>
         <div class="right">
             <div class="year">

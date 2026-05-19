@@ -17,10 +17,10 @@
 <div class="overlay" id="overlay"></div>
     <aside class="panel" id="panel" aria-hidden="true">
         <ul class="nav-links">
-            <li><a href="about">About</a></li>
-            <li><a href="tools">Tools</a></li>
-            <li><a href="works">Works</a></li>
-            <li><a href="contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#works">Works</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="panel-footer">
             <div class="socials">
