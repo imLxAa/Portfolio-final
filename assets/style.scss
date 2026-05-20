@@ -667,6 +667,80 @@ nav {
   transform: translateX(3px);
 }
 
+.recent-work{
+    width: 100%;
+    min-height: 100vh;
+    padding: 120px 80px;
+    margin-top: 50px;
+}
+
+.section-title{
+    text-align: center;
+    font-family:'horizon', sans-serif;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+.work-gallery{
+     display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    gap: 10px;
+    padding: 0 60px;
+}
+
+.work-card{
+   flex: 1;
+
+    min-width: 120px;
+    height: 420px;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border-radius: 20px;
+    background-color: #000;
+
+    filter: grayscale(80%);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+}
+
+.work-card:hover{
+    transform: translateY(-10px);
+}
+
+.p1{
+    background-image: url("../images/image1.jpg");
+}
+
+.p2{
+    background-image: url("../images/image2");
+}
+
+.p3{
+    background-image: url("../images/image3.jpg");
+}
+
+.p4{
+    background-image: url("../images/image4.jpg");
+}
+.p5{
+    background-image: url("../images/image5.jpg");
+}
+.p6{
+    background-image: url("../images/image6.jpg");
+}
+
+.work-card:hover{
+    flex: 4;
+    filter: grayscale(0%);
+}
+
 // CONTACT
 
 #contact{

@@ -4,7 +4,7 @@
     <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#tools">Tools</a></li>
-        <li><a href="#works">Works</a></li>
+        <li><a href="#work">Works</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
 
@@ -19,7 +19,7 @@
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#tools">Tools</a></li>
-            <li><a href="#works">Works</a></li>
+            <li><a href="#work">Works</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="panel-footer">

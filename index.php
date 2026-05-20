@@ -106,6 +106,26 @@
 </div>
 </section>
 
+
+<section class="recent-work" id="work">
+    <h1 class="section-title">RECENT WORK</h1>
+    <div class="work-gallery">
+        <div class="work-card p1"></div>
+        <div class="work-card p2"></div>
+        <div class="work-card p3"></div>
+        <div class="work-card p4"></div>
+        <div class="work-card p5"></div>
+        <div class="work-card p6"></div>
+    </div>
+    <div id="view">
+  <a href="categories.php" class="view-more">
+    View more
+    <span class="arrow">›</span>
+  </a>
+</div>
+</section>
+
+
 <section class="slide" id="contact">
     <div class="contact-container">
         <h3 class="contact-title">Contact</h3>
@@ -137,7 +157,6 @@
             <span class="text">Submit</span>
         </span>
 </button>
-<div>dede</div>
 
         </form>
     </div>

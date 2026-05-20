@@ -200,7 +200,7 @@ gsap.from("#footer", {
 
     scrollTrigger: {
         trigger: "#footer",
-        start: "top 92%",
+        start: "top 85%",
         end: "top 65%",
         scrub: 0.8
     }
@@ -228,6 +228,20 @@ const contactTl = gsap.timeline({
     }
 });
 
+gsap.from(".recent-work", {
+    y: 200,
+    opacity: 0,
+    scale: 0.98,
+    filter: "blur(4px)",
+    ease: "expo.out",
+
+    scrollTrigger: {
+        trigger: ".recent-work",
+        start: "top 85%",
+        end: "top 35%",
+        scrub: 1
+    }
+});
 
 /* TITLE */
 
@@ -308,7 +322,6 @@ setTimeout(() => {
         y: -15,
         scale: 0.96,
         filter: "blur(12px)",
-
         duration: 1.1,
         ease: "power3.out",
 
