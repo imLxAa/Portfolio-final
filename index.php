@@ -88,12 +88,13 @@
                 echo '</div>';
             echo '</div>';
         }
+        
         $req->closeCursor();
 
-        
         //req pour dernière compétences
         
-        $works = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,6");
+        // $works = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,6");
+
         ?>
     </div>
     <div id="view">
@@ -136,6 +137,7 @@
             <span class="text">Submit</span>
         </span>
 </button>
+<div>dede</div>
 
         </form>
     </div>
