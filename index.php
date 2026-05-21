@@ -81,8 +81,16 @@
         {
             echo '<div class="col-lg-3 col-md-4 col-sm-6">';
                 echo '<div class="card my-3">';
-                    echo '<img src="images/'.$don['image'].'" class="card-img-top" alt="image de '.$don['nom'].'">';
-                    echo ' <div class="card-body">';
+                    echo '
+                        <div class="tool-item">
+                        <img src="images/'.$don['image'].'"
+                        class="card-img-top"
+                        alt="image de '.$don['nom'].'">
+                        <span class="tooltip">
+                        '.$don['nom'].'
+                        </span>
+                        </div>';                    
+                        echo ' <div class="card-body">';
                         echo '<h5 class="card-title">'.$don['nom'].'</h5>';
                     echo '</div>';
                 echo '</div>';
@@ -97,12 +105,6 @@
 
         ?>
     </div>
-    <div id="view">
-  <a href="categories.php" class="view-more">
-    View more
-    <span class="arrow">›</span>
-  </a>
-</div>
 </div>
 </section>
 
