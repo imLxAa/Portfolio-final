@@ -44,9 +44,10 @@
 </head>
 <body>
 <?php
-    include("partials/nav.php");
+    include("partials/nav-minimal.php");
 ?>
-<div class="container">
+<div class="container product-page">
+    <a href="categories.php" class="projects-back my-3 d-inline-block">← Retour aux projets</a>
     <div class="row my-5">
         <div class="col-md-6">
             <img src="images/<?= $don['cover'] ?>" alt="image de <?= $don['name'] ?>" class="img-fluid">
@@ -102,5 +103,6 @@
     </div>
 
 </div>
+<script src="js/nav-menu.js"></script>
 </body>
 </html>

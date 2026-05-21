@@ -1,17 +1,14 @@
-const navLinks = document.querySelector(".main-nav ul");
+const navLinks = document.querySelector(".main-nav ul:not(.nav-links)");
 
-window.addEventListener("scroll", () => {
-
-    if(window.pageYOffset > 0){
-
-        navLinks.classList.add("hide");
-
-    } else {
-
-        navLinks.classList.remove("hide");
-    }
-
-});
+if (navLinks) {
+    window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 0) {
+            navLinks.classList.add("hide");
+        } else {
+            navLinks.classList.remove("hide");
+        }
+    });
+}
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,40 +81,22 @@ requestAnimationFrame(raf);
 
 const nav = document.querySelector(".main-nav");
 const footer = document.querySelector("#footer");
-
-window.addEventListener("scroll", () => {
-
-    const footerTop = footer.offsetTop;
-    const scrollPos = window.scrollY + window.innerHeight / 2;
-
-    if(scrollPos >= footerTop){
-        nav.classList.add("white");
-    } else {
-        nav.classList.remove("white");
-    }
-
-});
-
 const body = document.body;
 
-window.addEventListener("scroll", () => {
+if (nav && footer) {
+    window.addEventListener("scroll", () => {
+        const footerTop = footer.offsetTop;
+        const scrollPos = window.scrollY + window.innerHeight / 2;
 
-    const footerTop = footer.offsetTop;
-    const scrollPos = window.scrollY + window.innerHeight / 2;
-
-    if(scrollPos >= footerTop){
-
-        nav.classList.add("white");
-        body.classList.add("hide-deco");
-
-    } else {
-
-        nav.classList.remove("white");
-        body.classList.remove("hide-deco");
-
-    }
-
-});
+        if (scrollPos >= footerTop) {
+            nav.classList.add("white");
+            if (body) body.classList.add("hide-deco");
+        } else {
+            nav.classList.remove("white");
+            if (body) body.classList.remove("hide-deco");
+        }
+    });
+}
 
 window.addEventListener("load", () => {
 

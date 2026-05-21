@@ -74,36 +74,7 @@
   <h1 class="tools-title">TOOLS</h1>
   <div class="tool-card">
     <div class="gallery">
-        <?php
-        require "config/connexion.php";
-        $req = $bdd->query("SELECT * FROM skills");
-        while($don = $req->fetch())
-        {
-            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
-                echo '<div class="card my-3">';
-                    echo '
-                        <div class="tool-item">
-                        <img src="images/'.$don['image'].'"
-                        class="card-img-top"
-                        alt="image de '.$don['nom'].'">
-                        <span class="tooltip">
-                        '.$don['nom'].'
-                        </span>
-                        </div>';                    
-                        echo ' <div class="card-body">';
-                        echo '<h5 class="card-title">'.$don['nom'].'</h5>';
-                    echo '</div>';
-                echo '</div>';
-            echo '</div>';
-        }
-        
-        $req->closeCursor();
-
-        //req pour dernière compétences
-        
-        // $works = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC LIMIT 0,6");
-
-        ?>
+        <?php include("partials/tools-gallery.php"); ?>
     </div>
 </div>
 </section>
@@ -112,19 +83,42 @@
 <section class="recent-work" id="work">
     <h1 class="section-title">RECENT WORK</h1>
     <div class="work-gallery">
-        <div class="work-card p1"></div>
-        <div class="work-card p2"></div>
-        <div class="work-card p3"></div>
-        <div class="work-card p4"></div>
-        <div class="work-card p5"></div>
-        <div class="work-card p6"></div>
+        <?php
+        if (!isset($bdd)) {
+            require "config/connexion.php";
+        }
+        $works = $bdd->query(
+            "SELECT products.cover AS cover, products.name AS pname, products.id AS pid
+             FROM products
+             ORDER BY products.date DESC
+             LIMIT 6"
+        );
+        $workCount = 0;
+        while ($don = $works->fetch()) {
+            $workCount++;
+            $cover = htmlspecialchars($don['cover'], ENT_QUOTES, 'UTF-8');
+            $name = htmlspecialchars($don['pname'], ENT_QUOTES, 'UTF-8');
+            $pid = (int) $don['pid'];
+            echo '<a href="product.php?id=' . $pid . '" class="work-card" style="background-image:url(images/mini_' . $cover . ')" title="' . $name . '"></a>';
+        }
+        $works->closeCursor();
+
+        if ($workCount === 0) {
+            echo '<div class="work-card p1"></div>';
+            echo '<div class="work-card p2"></div>';
+            echo '<div class="work-card p3"></div>';
+            echo '<div class="work-card p4"></div>';
+            echo '<div class="work-card p5"></div>';
+            echo '<div class="work-card p6"></div>';
+        }
+        ?>
     </div>
     <div id="view">
-  <a href="categories.php" class="view-more">
-    View more
-    <span class="arrow">›</span>
-  </a>
-</div>
+        <a href="categories.php" class="view-more">
+            View more
+            <span class="arrow">›</span>
+        </a>
+    </div>
 </section>
 
 
@@ -199,54 +193,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrambleTextPlugin.min.js"></script>
 
 <script src="script.js"></script>
-
-
-<script>
-        const burger = document.getElementById("burger");
-        const panel = document.getElementById("panel");
-        const overlay = document.getElementById("overlay");
-
-        function openMenu() {
-            burger.classList.add("open");
-            panel.classList.add("open");
-            overlay.classList.add("open");
-
-            // gestion inclusive
-            burger.setAttribute("aria-expanded", "true");
-            panel.setAttribute("aria-hidden", "false");
-
-            // éviter le scroll
-            document.body.style.overflow = "hidden";
-        }
-
-        function closeMenu() {
-            burger.classList.remove("open");
-            panel.classList.remove("open");
-            overlay.classList.remove("open");
-            burger.setAttribute("aria-expanded", "false");
-            panel.setAttribute("aria-hidden", "true");
-            document.body.style.overflow = "";
-        }
-
-        // fonction fléchée () => {}
-        burger.addEventListener("click", () => {
-            if( burger.classList.contains("open"))
-            {
-                closeMenu();
-            }else{
-                openMenu();
-            }
-        });
-
-        overlay.addEventListener("click", closeMenu);
-
-        document.addEventListener("click", "keydown", (e) => {
-            if(e.key === "Escape") {
-                closeMenu();
-            }
-        });
-        
-    </script>
+<script src="js/nav-menu.js"></script>
 
 
 </body>

@@ -1,31 +1,22 @@
 <?php
-    require "config/connexion.php";
-    // mode = filtre
+require "config/connexion.php";
 
-    if(isset($_GET['id']) && is_numeric($_GET['id']))
-    {
-        // l'utilisateur a choisi un filtre
-        $mode = htmlspecialchars($_GET['id']);
-        // sécurité, l'id est bien lié à une catégorie existante
-        // requête de sécurité
-        $reqSecu = $bdd->prepare("SELECT * FROM categories WHERE id=?");
-        $reqSecu->execute([$mode]);
-        $donSecu = $reqSecu->fetch(PDO::FETCH_ASSOC);
-        if(!$donSecu)
-        {
-            header("LOCATION:404.php");
-            exit();
-        }
-    }else{
-        // aucun filtre
-        $mode = "all";
+$activeCategory = null;
+$activeCategoryName = null;
+
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $categoryId = (int) $_GET['id'];
+    $reqSecu = $bdd->prepare("SELECT * FROM categories WHERE id = ?");
+    $reqSecu->execute([$categoryId]);
+    $donSecu = $reqSecu->fetch(PDO::FETCH_ASSOC);
+    if (!$donSecu) {
+        header("Location: 404.php");
+        exit();
     }
-
-
-
-
+    $activeCategory = $categoryId;
+    $activeCategoryName = $donSecu['name'];
+}
 ?>
-
 <!doctype html>
 <html lang="fr">
 <head>
@@ -33,66 +24,83 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="assets/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <script src="assets/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="build/style.css">
-    <title>Catégories</title>
+    <title>Voir plus de projets — LxaaPortfolio</title>
 </head>
-<body>
-<?php
-    include("partials/nav.php");
-?>
-    <div class="container">
-        <h1>Les catégories</h1>
-        <a href="categories.php" class="btn btn-secondary">Tous</a>
-        <?php
-            $catList = $bdd->query("SELECT * FROM categories");
-            while($donCatList = $catList->fetch())
-            {
-                echo "<a href='categories.php?id=".$donCatList['id']."' class='btn btn-primary mx-2'>".$donCatList['name']."</a>";
-            }
-            $catList->closeCursor();
-        ?>
-        <div class="row">
-            <?php
-            require "config/connexion.php";
-            // choix du type de requête suivant le choix du filtre de l'utilisateur
-            if($mode == "all")
-            {
-                $req = $bdd->query("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id ORDER BY products.date DESC");
-            }else{
-                $req = $bdd->prepare("SELECT products.cover AS cover, products.name AS pname, categories.name AS cname, DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid FROM products INNER JOIN categories ON products.category = categories.id WHERE products.category=? ORDER BY products.date DESC");
-                $req->execute([$mode]);
-            }
-            // compter le nombre de résultats
-            $count = $req->rowCount();
-            // si supérieur à 0 => boucle qui affiche les produits
-            if($count > 0)
-            {
-                while($don = $req->fetch())
-                {
-                    echo '<div class="col-lg-3 col-md-4 col-sm-6">';
-                        echo '<div class="card my-3">';
-                            echo '<img src="images/mini_'.$don['cover'].'" class="card-img-top" alt="image de '.$don['pname'].'">';
-                            echo ' <div class="card-body">';
-                                echo '<h5 class="card-title">'.$don['pname'].'</h5>';
-                                echo '<a href="categories.php?id='.$don['cid'].'" class="btn btn-secondary">'.$don['cname'].'</a>';
-                                echo ' <p class="card-text"><strong>Date: </strong>'.$don['mydate'].'</p>';
-                                echo ' <a href="product.php?id='.$don['pid'].'" class="btn btn-primary">En savoir plus</a>';
-                            echo '</div>';
-                        echo '</div>';
-                    echo '</div>';
-                }
-            }else{
-                // si pas supérieur à 0 => afficher un message
-                echo "<p class='col-12 text-center'>Aucun produit dans cette catégorie</p>";
-            }
-            // fermeture du curseur de la base de données
-            $req->closeCursor();
-            ?>
-        </div>
+<body class="page-projects">
+<?php include("partials/nav-minimal.php"); ?>
 
+<section class="projects-page">
+    <div class="projects-head">
+        <h1 class="section-title">More Work</h1>
+        <p class="projects-intro">
+            <?php if ($activeCategoryName): ?>
+                <?= htmlspecialchars($activeCategoryName, ENT_QUOTES, 'UTF-8') ?>
+            <?php else: ?>
+                Choisis une catégorie pour filtrer tes réalisations
+            <?php endif; ?>
+        </p>
     </div>
+
+    <div class="projects-grid">
+        <?php
+        if ($activeCategory === null) {
+            $req = $bdd->query(
+                "SELECT products.cover AS cover, products.name AS pname, categories.name AS cname,
+                        DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid
+                 FROM products
+                 INNER JOIN categories ON products.category = categories.id
+                 ORDER BY products.date DESC"
+            );
+        } else {
+            $req = $bdd->prepare(
+                "SELECT products.cover AS cover, products.name AS pname, categories.name AS cname,
+                        DATE_FORMAT(products.date, '%d/%m/%Y') AS mydate, products.id AS pid, categories.id AS cid
+                 FROM products
+                 INNER JOIN categories ON products.category = categories.id
+                 WHERE products.category = ?
+                 ORDER BY products.date DESC"
+            );
+            $req->execute([$activeCategory]);
+        }
+
+        $hasProjects = false;
+        while ($don = $req->fetch()) {
+            $hasProjects = true;
+            $pname = htmlspecialchars($don['pname'], ENT_QUOTES, 'UTF-8');
+            $cname = htmlspecialchars($don['cname'], ENT_QUOTES, 'UTF-8');
+            $cover = htmlspecialchars($don['cover'], ENT_QUOTES, 'UTF-8');
+            $mydate = htmlspecialchars($don['mydate'], ENT_QUOTES, 'UTF-8');
+            $pid = (int) $don['pid'];
+            $cid = (int) $don['cid'];
+            ?>
+            <article class="project-card">
+                <a href="product.php?id=<?= $pid ?>" class="project-card-image">
+                    <img src="images/mini_<?= $cover ?>" alt="<?= $pname ?>">
+                </a>
+                <div class="project-card-body">
+                    <h2><?= $pname ?></h2>
+                    <p class="project-date"><?= $mydate ?></p>
+                    <a href="categories.php?id=<?= $cid ?>" class="project-category"><?= $cname ?></a>
+                    <a href="product.php?id=<?= $pid ?>" class="project-link">Voir le projet →</a>
+                </div>
+            </article>
+            <?php
+        }
+        if (!$hasProjects) {
+            echo '<p class="projects-empty">Aucun projet dans cette catégorie pour le moment.</p>';
+        }
+        $req->closeCursor();
+        ?>
+    </div>
+
+    <?php include("partials/category-filters.php"); ?>
+</section>
+
+<a href="index.php#work" class="projects-back" aria-label="Retour au portfolio">← Portfolio</a>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="js/nav-menu.js"></script>
+<script src="js/projects-page.js"></script>
 </body>
 </html>

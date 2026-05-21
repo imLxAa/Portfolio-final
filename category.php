@@ -33,7 +33,7 @@
 </head>
 <body>
 <?php
-    include("partials/nav.php");
+    include("partials/nav-minimal.php");
 ?>
 <div class="container">
     <h1><?= $donCat['name'] ?></h1>
@@ -61,5 +61,6 @@
         ?>
     </div>
 </div>
+<script src="js/nav-menu.js"></script>
 </body>
 </html>
