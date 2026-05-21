@@ -84,6 +84,7 @@
     <h1 class="section-title">RECENT WORK</h1>
     <div class="work-gallery">
         <?php
+        require_once "config/product-image.php";
         if (!isset($bdd)) {
             require "config/connexion.php";
         }
@@ -96,20 +97,20 @@
         $workCount = 0;
         while ($don = $works->fetch()) {
             $workCount++;
-            $cover = htmlspecialchars($don['cover'], ENT_QUOTES, 'UTF-8');
+            $cover = $don['cover'];
             $name = htmlspecialchars($don['pname'], ENT_QUOTES, 'UTF-8');
             $pid = (int) $don['pid'];
-            echo '<a href="product.php?id=' . $pid . '" class="work-card" style="background-image:url(images/mini_' . $cover . ')" title="' . $name . '"></a>';
+            $imgSrc = htmlspecialchars(product_image_src($cover), ENT_QUOTES, 'UTF-8');
+            $featured = $workCount === 1 ? ' work-card--featured' : '';
+            ?>
+            <a href="product.php?id=<?= $pid ?>" class="work-card<?= $featured ?>" title="<?= $name ?>">
+                <img src="<?= $imgSrc ?>" alt="<?= $name ?>" loading="lazy">
+            </a>
+            <?php
         }
         $works->closeCursor();
-
         if ($workCount === 0) {
-            echo '<div class="work-card p1"></div>';
-            echo '<div class="work-card p2"></div>';
-            echo '<div class="work-card p3"></div>';
-            echo '<div class="work-card p4"></div>';
-            echo '<div class="work-card p5"></div>';
-            echo '<div class="work-card p6"></div>';
+            echo '<p class="work-gallery-empty">Aucun projet pour le moment. Ajoute tes créations depuis l’admin.</p>';
         }
         ?>
     </div>

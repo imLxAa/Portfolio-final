@@ -222,6 +222,34 @@ gsap.from(".recent-work", {
     }
 });
 
+gsap.from(".work-card", {
+    y: 60,
+    opacity: 0,
+    scale: 0.96,
+    filter: "blur(10px)",
+    stagger: 0.08,
+    ease: "power3.out",
+    scrollTrigger: {
+        trigger: ".work-gallery",
+        start: "top 80%",
+        end: "top 45%",
+        scrub: 1
+    }
+});
+
+gsap.from("#view .view-more", {
+    y: 24,
+    opacity: 0,
+    filter: "blur(10px)",
+    ease: "power3.out",
+    scrollTrigger: {
+        trigger: "#view",
+        start: "top 90%",
+        end: "top 70%",
+        scrub: 1
+    }
+});
+
 /* TITLE */
 
 contactTl.from(".contact-title", {
