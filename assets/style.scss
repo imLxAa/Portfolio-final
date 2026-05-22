@@ -314,7 +314,7 @@ body {
 }
 
 .about{
-    padding: var(--section-pad-y) var(--section-pad-x);
+    padding: 120px 80px;
     text-align: center;
 }
 
@@ -771,7 +771,7 @@ nav {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    padding: var(--section-pad-y) var(--section-pad-x) 0;
+    padding: 120px 20px;
     box-sizing: border-box;
 }
 
@@ -860,6 +860,8 @@ nav {
   text-decoration: none;
   font-size: 13px;
   transition: all 0.3s ease;
+  margin-top: 5vh;
+   @include glass-premium;
 }
 
 #view .view-more:hover {
@@ -1196,7 +1198,7 @@ nav {
 .recent-work{
     width: 100%;
     max-width: 100%;
-    padding: var(--section-pad-y) var(--section-pad-x);
+    padding: 120px 20pxS;
     margin-top: 0;
     box-sizing: border-box;
     display: flex;
@@ -1267,7 +1269,7 @@ nav {
     display:flex;
     justify-content:center;
     align-items:center;
-    padding: var(--section-pad-y) var(--section-pad-x);
+    padding: 120px 80px;
     box-sizing: border-box;
 }
 
@@ -1839,7 +1841,6 @@ nav {
         padding-top: clamp(1.5rem, 4vh, 2.5rem);
     }
 
-    /* Croix : masquées tablette + mobile */
     .cross,
     .top-cross,
     .bottom-cross,
@@ -1847,7 +1848,6 @@ nav {
         display: none !important;
     }
 
-    /* Points verticaux : visibles sur tablette, centrés dans le viewport */
     .left-space {
         display: flex;
         left: clamp(16px, 2.5vw, 28px);
@@ -1873,7 +1873,6 @@ nav {
         gap: clamp(16px, 2.5vw, 24px);
     }
 }
-
 
 @media (max-width: 1024px) {
     #home {
@@ -1981,7 +1980,7 @@ nav {
         width: 100%;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 2vh;
+        margin-top: 5vh;
     }
 
     .recent-work .work-gallery .work-card {

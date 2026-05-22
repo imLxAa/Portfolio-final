@@ -257,8 +257,8 @@ gsap.from(".recent-work-actions .view-more", {
     ease: "power3.out",
     scrollTrigger: {
         trigger: ".recent-work-actions",
-        start: "top 92%",
-        end: "top 72%",
+        start: "top 80%",
+        end: "top 60%",
         scrub: 1
     }
 });

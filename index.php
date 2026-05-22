@@ -118,7 +118,7 @@
     </div>
     <div class="recent-work-actions" id="view">
         <a href="categories.php" class="view-more">
-            Voir plus
+            View more
             <span class="arrow">›</span>
         </a>
     </div>
