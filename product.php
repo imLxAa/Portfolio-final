@@ -42,12 +42,17 @@
      <link rel="stylesheet" href="build/style.css">
     <title>BI2 - Stock - <?= $don['name'] ?></title>
 </head>
-<body>
+<body class="page-product">
 <?php
+    $navBack = [
+        'href' => 'categories.php',
+        'label' => '←',
+        'aria' => 'Retour aux projets',
+    ];
     include("partials/nav-minimal.php");
 ?>
+<a href="categories.php" class="projects-back projects-back--side" aria-label="Retour aux projets">← Retour aux projets</a>
 <div class="container product-page">
-    <a href="categories.php" class="projects-back my-3 d-inline-block">← Retour aux projets</a>
     <div class="row my-5">
         <div class="col-md-6">
             <img src="images/<?= $don['cover'] ?>" alt="image de <?= $don['name'] ?>" class="img-fluid">

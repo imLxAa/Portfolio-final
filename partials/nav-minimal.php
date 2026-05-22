@@ -1,6 +1,17 @@
-
-<nav class="main-nav">
-    <a href="index.php" class="logo">Lxaa</a>
+<?php
+$navBack = $navBack ?? null;
+?>
+<nav class="main-nav<?= $navBack ? ' main-nav--with-back' : '' ?>">
+    <div class="main-nav__start">
+        <a href="index.php" class="logo">Lxaa</a>
+        <?php if ($navBack): ?>
+            <a
+                href="<?= htmlspecialchars($navBack['href'], ENT_QUOTES, 'UTF-8') ?>"
+                class="projects-back projects-back--nav"
+                aria-label="<?= htmlspecialchars($navBack['aria'] ?? $navBack['label'], ENT_QUOTES, 'UTF-8') ?>"
+            ><span class="projects-back__icon" aria-hidden="true"><?= htmlspecialchars($navBack['label'], ENT_QUOTES, 'UTF-8') ?></span></a>
+        <?php endif; ?>
+    </div>
     <button id="burger" type="button" aria-label="Menu" aria-expanded="false">
         <span class="bar"></span>
         <span class="bar"></span>

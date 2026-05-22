@@ -250,15 +250,15 @@ gsap.from(".work-card", {
     }
 });
 
-gsap.from("#view .view-more", {
+gsap.from(".recent-work-actions .view-more", {
     y: 24,
     opacity: 0,
     filter: "blur(10px)",
     ease: "power3.out",
     scrollTrigger: {
-        trigger: "#view",
-        start: "top 95%",
-        end: "top 70%",
+        trigger: ".recent-work-actions",
+        start: "top 92%",
+        end: "top 72%",
         scrub: 1
     }
 });

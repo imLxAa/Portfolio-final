@@ -82,6 +82,7 @@
 
 <section class="recent-work" id="work">
     <h1 class="section-title">RECENT WORK</h1>
+    <div class="work-gallery-shell">
     <div class="work-gallery">
         <?php
         require_once "config/product-image.php";
@@ -114,7 +115,8 @@
         }
         ?>
     </div>
-    <div id="view">
+    </div>
+    <div class="recent-work-actions" id="view">
         <a href="categories.php" class="view-more">
             Voir plus
             <span class="arrow">›</span>

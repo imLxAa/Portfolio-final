@@ -59,7 +59,7 @@
     }
 
     tl.from(
-        ".projects-back",
+        ".projects-back--side, .projects-back--nav",
         {
             opacity: 0,
             x: -12,

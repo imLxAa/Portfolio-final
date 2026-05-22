@@ -29,7 +29,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <title>Voir plus de projets — LxaaPortfolio</title>
 </head>
 <body class="page-projects">
-<?php include("partials/nav-minimal.php"); ?>
+<?php
+$navBack = [
+    'href' => 'index.php#work',
+    'label' => '←',
+    'aria' => 'Retour au portfolio',
+];
+include("partials/nav-minimal.php");
+?>
 
 <section class="projects-page">
     <div class="projects-head">
@@ -112,7 +119,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     </div>
 </section>
 
-<a href="index.php#work" class="projects-back" aria-label="Retour au portfolio">← Portfolio</a>
+<a href="index.php#work" class="projects-back projects-back--side" aria-label="Retour au portfolio">← Portfolio</a>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="js/nav-menu.js"></script>

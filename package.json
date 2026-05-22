@@ -1,0 +1,26 @@
+{
+  "name": "portfolio-final",
+  "version": "1.0.0",
+  "description": "Prendre la version lts",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imLxAa/Portfolio-final.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/imLxAa/Portfolio-final/issues"
+  },
+  "homepage": "https://github.com/imLxAa/Portfolio-final#readme",
+  "devDependencies": {
+    "prettier": "^3.8.3",
+    "stylelint": "^17.12.0",
+    "stylelint-config-standard": "^40.0.0"
+  }
+}
