@@ -351,3 +351,33 @@ setTimeout(() => {
     });
 
 }, 3000);
+
+/* Recent Work — mobile : 2 cartes visibles, « Voir plus » révèle le reste puis lien categories */
+(function initRecentWorkMobileReveal() {
+    const section = document.getElementById("work");
+    const viewMore = document.querySelector(".recent-work-actions .view-more");
+    if (!section || !viewMore) return;
+
+    const mq = window.matchMedia("(max-width: 768px)");
+
+    viewMore.addEventListener("click", (e) => {
+        if (!mq.matches) return;
+
+        const cards = section.querySelectorAll(".work-gallery .work-card");
+        if (cards.length <= 2) return;
+
+        if (section.getAttribute("data-expanded") !== "true") {
+            e.preventDefault();
+            section.setAttribute("data-expanded", "true");
+            if (typeof ScrollTrigger !== "undefined") {
+                ScrollTrigger.refresh(true);
+            }
+        }
+    });
+
+    mq.addEventListener("change", () => {
+        if (!mq.matches) {
+            section.removeAttribute("data-expanded");
+        }
+    });
+})();

@@ -1652,7 +1652,7 @@ nav {
 
     .recent-work .work-gallery {
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         justify-content: center;
         gap: var(--work-gap);
         width: 100%;
@@ -1972,7 +1972,10 @@ nav {
     }
 
     .recent-work .work-gallery {
+        flex-wrap: wrap;
         justify-content: center;
+        align-items: stretch;
+        width: 100%;
     }
 
     .recent-work .recent-work-actions,
@@ -1987,6 +1990,10 @@ nav {
         flex: 0 0 100%;
         min-width: 0;
         max-width: 100%;
+    }
+
+    .recent-work:not([data-expanded="true"]) .work-gallery .work-card:nth-child(n + 3) {
+        display: none;
     }
 
     .recent-work .work-card:hover,
