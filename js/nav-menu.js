@@ -10,7 +10,7 @@
         overlay.classList.add("open");
         burger.setAttribute("aria-expanded", "true");
         panel.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
+            document.body.style.overflow = "hidden";
     }
 
     function closeMenu() {
@@ -19,7 +19,7 @@
         overlay.classList.remove("open");
         burger.setAttribute("aria-expanded", "false");
         panel.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = "";
+            document.body.style.overflow = "";
     }
 
     burger.addEventListener("click", () => {

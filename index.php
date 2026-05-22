@@ -116,7 +116,7 @@
     </div>
     <div id="view">
         <a href="categories.php" class="view-more">
-            View more
+            Voir plus
             <span class="arrow">›</span>
         </a>
     </div>
