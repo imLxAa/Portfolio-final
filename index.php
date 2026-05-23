@@ -178,8 +178,6 @@
             <span>|</span>
             <a href="https://x.com/LxaaStudio">X</a>
             <span>|</span>
-            <a href="#">E-mail</a>
-            <span>|</span>
             <a href="#">Website</a>
 
         </div>

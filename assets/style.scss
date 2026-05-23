@@ -1198,8 +1198,7 @@ nav {
 .recent-work{
     width: 100%;
     max-width: 100%;
-    padding: 120px 20pxS;
-    margin-top: 0;
+    padding: 120px 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -1642,11 +1641,20 @@ nav {
         --work-card-height: clamp(280px, 38vw, 400px);
     }
 
+    .tools-section{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 120px 120px;
+        box-sizing: border-box;
+    }
+
     .recent-work .work-gallery-shell {
         width: calc(100% - var(--deco-left-reserve));
         margin-left: auto;
         margin-right: auto;
-        padding: 0;
+        padding: 0 30px;
         overflow: hidden;
     }
 
@@ -1690,9 +1698,7 @@ nav {
 /* Desktop : rendu d’origine inchangé */
 @media (min-width: 1025px) {
     .recent-work {
-        min-height: 100vh;
         padding: 120px 80px;
-        margin-top: 50px;
         display: block;
     }
 
