@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="build/style.css" href="https://jsdelivr.net">
+    <link rel="stylesheet" href="dist/css/glightbox.css">
+    <link rel="stylesheet" href="build/style.css">
     <title>LxaaPortfolio</title>
 </head>
 <body>
@@ -184,7 +185,7 @@
 
 </footer>
 
-
+<script src="dist/js/glightbox.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>

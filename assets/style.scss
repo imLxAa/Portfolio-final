@@ -1537,9 +1537,10 @@ nav {
     overflow: hidden;
     white-space: nowrap;
     border-right: 2px solid white;
-    width: fit-content;
+    width: 480px;
     animation: blink 0.8s infinite;
     padding-right: 33px;
+
 }
 
 @keyframes blink {

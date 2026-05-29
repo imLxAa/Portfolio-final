@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="assets/bootstrap-5.3.8-dist/css/bootstrap.min.css">
     <script src="assets/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="dist/css/glightbox.min.css">
      <link rel="stylesheet" href="build/style.css">
     <title>BI2 - Stock - <?= $don['name'] ?></title>
 </head>
@@ -55,7 +56,9 @@
 <div class="container product-page">
     <div class="row my-5">
         <div class="col-md-6">
-            <img src="images/<?= $don['cover'] ?>" alt="image de <?= $don['name'] ?>" class="img-fluid">
+            <a href='images/<?= $don['cover'] ?>' class="myimg">
+                <img src="images/<?= $don['cover'] ?>" alt="image de <?= $don['name'] ?>" class="img-fluid">
+            </a>
         </div>
         <div class="col-md-6">
             <h1><?= $don['name'] ?></h1>
@@ -83,7 +86,9 @@
                             else{
                                 echo "<div class='carousel-item'>";
                             }
-                            echo "<img src='images/".$donGal['fichier']."' class='d-block w-100' alt='image de galere de".$don['name']."'>";
+                            echo "<a href='images/".$donGal['fichier']."' class='myimg'>";
+                            echo "<img src='images/".$donGal['fichier']."' class='d-block w-100 myimg' alt='image de galere de".$don['name']."'>";
+                            echo "</a>";
                             echo "</div>";
                             $cpt++;
                         }
@@ -109,5 +114,12 @@
 
 </div>
 <script src="js/nav-menu.js"></script>
+<script src="dist/js/glightbox.min.js"></script>
+<script>
+    var lightbox = GLightbox();
+    var lightboxInlineIframe = GLightbox({
+        selector: '.myimg'
+    });
+</script>
 </body>
 </html>
