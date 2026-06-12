@@ -1,359 +1,341 @@
-const navLinks = document.querySelector(".main-nav ul:not(.nav-links)");
+// ==========================================
+// CONFIGURATION
+// ==========================================
 
-if (navLinks) {
+const ANIMATION_CONFIG = {
+    threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5], // Multiple thresholds pour plus de fluidité
+    rootMargin: '0px'
+};
+
+// ==========================================
+// UTILITY FUNCTIONS
+// ==========================================
+
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+}
+
+function getVisibilityRatio(entry) {
+    return entry.intersectionRatio;
+}
+
+// ==========================================
+// NAV HIDE ON SCROLL
+// ==========================================
+
+function initNavHide() {
+    const navLinks = document.querySelector(".main-nav ul:not(.nav-links)");
+    if (!navLinks) return;
+
+    let ticking = false;
+
     window.addEventListener("scroll", () => {
-        if (window.pageYOffset > 0) {
-            navLinks.classList.add("hide");
-        } else {
-            navLinks.classList.remove("hide");
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                navLinks.classList.toggle("hide", window.pageYOffset > 0);
+                ticking = false;
+            });
+            ticking = true;
         }
+    }, { passive: true });
+}
+
+// ==========================================
+// NAV COLOR CHANGE ON FOOTER
+// ==========================================
+
+function initNavFooterColor() {
+    const nav = document.querySelector(".main-nav");
+    const footer = document.querySelector("#footer");
+    const body = document.body;
+
+    if (!nav || !footer) return;
+
+    let ticking = false;
+
+    window.addEventListener("scroll", () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const footerTop = footer.offsetTop;
+                const scrollPos = window.scrollY + window.innerHeight / 2;
+                const inFooter = scrollPos >= footerTop;
+
+                nav.classList.toggle("white", inFooter);
+                body?.classList.toggle("hide-deco", inFooter);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+}
+
+// ==========================================
+// HERO PARALLAX (Ultra Smooth)
+// ==========================================
+
+function initHeroParallax() {
+    const middle = document.querySelector(".middle");
+    const end = document.querySelector(".end");
+    const home = document.querySelector("#home");
+
+    if (!home) return;
+
+    let currentProgress = 0;
+    let targetProgress = 0;
+    let rafId = null;
+
+    function updateParallax() {
+        // Lerp pour fluidité
+        currentProgress += (targetProgress - currentProgress) * 0.08;
+
+        if (middle) {
+            middle.style.transform = `translate3d(${-200 * currentProgress}px, 0, 0)`;
+            middle.style.opacity = 1 - currentProgress;
+        }
+
+        if (end) {
+            end.style.transform = `
+                translate3d(${400 * currentProgress}px, 0, 0) 
+                rotate(${3 * currentProgress}deg) 
+                scale(${1 - 0.05 * currentProgress})
+            `;
+            end.style.filter = `blur(${12 * currentProgress}px)`;
+            end.style.opacity = 1 - 0.8 * currentProgress;
+        }
+
+        // Continue animation si pas encore stabilisé
+        if (Math.abs(targetProgress - currentProgress) > 0.001) {
+            rafId = requestAnimationFrame(updateParallax);
+        } else {
+            rafId = null;
+        }
+    }
+
+    window.addEventListener("scroll", () => {
+        const rect = home.getBoundingClientRect();
+        targetProgress = clamp(-rect.top / rect.height, 0, 1);
+
+        if (!rafId) {
+            rafId = requestAnimationFrame(updateParallax);
+        }
+    }, { passive: true });
+}
+
+// ==========================================
+// SCROLL ANIMATIONS (Rejouables + Fluides)
+// ==========================================
+
+function initScrollAnimations() {
+    const animations = [
+        { 
+            selector: '.about', 
+            from: { x: -180, rotate: -2, scale: 0.97, blur: 6 },
+            direction: 'left'
+        },
+        { 
+            selector: '.tool-card', 
+            from: { x: 180, rotate: 2, scale: 0.92, blur: 6 },
+            stagger: 0.05
+        },
+        { 
+            selector: '.tools-title', 
+            from: { x: 180, rotate: 2, scale: 0.92, blur: 6 }
+        },
+        { 
+            selector: '#footer', 
+            from: { y: 120, scale: 0.985, blur: 12 }
+        },
+        { 
+            selector: '.contact-title', 
+            from: { y: 60, blur: 10 }
+        },
+        { 
+            selector: '.contact-description', 
+            from: { y: 40, blur: 10 }
+        },
+        { 
+            selector: '.form-group', 
+            from: { x: 180, blur: 10 },
+            alternateX: true,
+            stagger: 0.08
+        },
+        { 
+            selector: '.btn-17', 
+            from: { y: 80, scale: 0.9, blur: 10 }
+        },
+        { 
+            selector: '.recent-work', 
+            from: { y: 200, scale: 0.98, blur: 4 }
+        },
+        { 
+            selector: '.work-card', 
+            from: { y: 60, scale: 0.96, blur: 10 },
+            stagger: 0.06
+        },
+        { 
+            selector: '.recent-work-actions .view-more', 
+            from: { y: 24, blur: 10 }
+        }
+    ];
+
+    animations.forEach(config => {
+        const elements = document.querySelectorAll(config.selector);
+        if (!elements.length) return;
+
+        // Préparer chaque élément
+        elements.forEach((el, index) => {
+            el.style.willChange = 'transform, opacity, filter';
+            
+            // Délai pour stagger
+            const delay = config.stagger ? index * config.stagger : 0;
+            
+            // Direction alternée pour form-group
+            let xValue = config.from.x || 0;
+            if (config.alternateX && index % 2 === 0) {
+                xValue = -xValue;
+            }
+
+            // Stocker les valeurs initiales
+            el._animConfig = {
+                x: xValue,
+                y: config.from.y || 0,
+                rotate: config.from.rotate || 0,
+                scale: config.from.scale || 1,
+                blur: config.from.blur || 0,
+                delay: delay
+            };
+
+            // État initial (caché)
+            applyAnimationState(el, 0);
+        });
+
+        // Observer avec ratio progressif
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const ratio = entry.intersectionRatio;
+                const el = entry.target;
+                
+                // Animation progressive basée sur la visibilité
+                applyAnimationState(el, ratio);
+            });
+        }, {
+            threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+            rootMargin: '0px 0px -5% 0px'
+        });
+
+        elements.forEach(el => observer.observe(el));
     });
 }
 
-gsap.registerPlugin(ScrollTrigger);
+function applyAnimationState(el, ratio) {
+    const config = el._animConfig;
+    if (!config) return;
 
-gsap.to(".middle", {
+    // Easing pour ratio (ease-out)
+    const eased = 1 - Math.pow(1 - ratio, 3);
 
-    x: -200,
-    opacity: 0,
-    scrollTrigger: {
-        trigger: "#home",
-        start: "top top",
-        end: "bottom top",
-        scrub: true
-    }
-});
+    const x = config.x * (1 - eased);
+    const y = config.y * (1 - eased);
+    const rotate = config.rotate * (1 - eased);
+    const scale = config.scale + (1 - config.scale) * eased;
+    const blur = config.blur * (1 - eased);
+    const opacity = eased;
 
-gsap.to(".end", {
+    el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`;
+    el.style.filter = blur > 0.1 ? `blur(${blur}px)` : 'none';
+    el.style.opacity = opacity;
+}
 
-    x: 400,
-    rotate: 3,
-    scale: 0.95,
-    filter: "blur(12px)",
-    opacity: 0.2,
-    ease: "none",
-    scrollTrigger: {
-        trigger: "#home",
-        start: "top top",
-        end: "bottom top",
-        scrub: 1
-    }
+// ==========================================
+// LOAD ANIMATIONS
+// ==========================================
 
-});
+function initLoadAnimations() {
+    const mainNav = document.querySelector(".main-nav");
+    const middle = document.querySelector(".middle");
+    const end = document.querySelector(".end");
 
-gsap.to("space", {
+    const elements = [
+        { el: mainNav, delay: 0, y: -80 },
+        { el: middle, delay: 200, y: 80, blur: 10 },
+        { el: end, delay: 400, y: 100, blur: 10 }
+    ];
 
-    y: -100,
-    rotate: 10,
+    elements.forEach(({ el, delay, y, blur }) => {
+        if (!el) return;
 
-    scrollTrigger: {
-        trigger: "#home",
-        start: "top top",
-        end: "bottom top",
-        scrub: 1
-    }
-});
+        el.style.opacity = '0';
+        el.style.transform = `translate3d(0, ${y}px, 0)`;
+        el.style.filter = blur ? `blur(${blur}px)` : 'none';
+        el.style.willChange = 'transform, opacity, filter';
 
-const lenis = new Lenis();
+        setTimeout(() => {
+            el.style.transition = 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease-out, filter 1s ease-out';
+            el.style.opacity = '1';
+            el.style.transform = 'translate3d(0, 0, 0)';
+            el.style.filter = 'none';
 
-lenis.on("scroll", ScrollTrigger.update);
-
-gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-});
-
-gsap.ticker.lagSmoothing(0);
-
-ScrollTrigger.scrollerProxy(document.documentElement, {
-    scrollTop(value) {
-        if (arguments.length) {
-            lenis.scrollTo(value, { immediate: true });
-        }
-        return lenis.scroll;
-    },
-    getBoundingClientRect() {
-        return {
-            top: 0,
-            left: 0,
-            width: window.innerWidth,
-            height: window.innerHeight,
-        };
-    },
-});
-
-gsap.from(".about", {
-    x: -180,
-    opacity: 0,
-    scale: 0.97,
-    rotate: -2,
-    filter: "blur(6px)",
-    duration: 1.8,
-    ease: "power3.out",
-    scrollTrigger: {
-    trigger: ".about",
-    start: "top 30%",
-    end: "top 5%",
-    scrub: 1
-    }
-});
-
-const nav = document.querySelector(".main-nav");
-const footer = document.querySelector("#footer");
-const body = document.body;
-
-if (nav && footer) {
-    window.addEventListener("scroll", () => {
-        const footerTop = footer.offsetTop;
-        const scrollPos = window.scrollY + window.innerHeight / 2;
-
-        if (scrollPos >= footerTop) {
-            nav.classList.add("white");
-            if (body) body.classList.add("hide-deco");
-        } else {
-            nav.classList.remove("white");
-            if (body) body.classList.remove("hide-deco");
-        }
+            // Cleanup willChange après animation
+            setTimeout(() => {
+                el.style.willChange = 'auto';
+            }, 1500);
+        }, delay);
     });
 }
 
-window.addEventListener("load", () => {
+// ==========================================
+// FOOTER LOGO
+// ==========================================
 
-    const tl = gsap.timeline();
+function initFooterLogo() {
+    const footerLogo = document.querySelector(".footer-logo");
+    if (!footerLogo) return;
 
-    /* NAVBAR */
+    let animated = false;
 
-    tl.from(".main-nav", {
-        y: -80,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out"
-    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !animated) {
+                footerLogo.style.transition = 'width 1.8s steps(5)';
+                footerLogo.style.width = '';
+                animated = true;
+            } else if (!entry.isIntersecting && animated) {
+                footerLogo.style.transition = 'none';
+                footerLogo.style.width = '0';
+                animated = false;
+            }
+        });
+    }, { threshold: 0.1 });
 
-    /* DECORATIONS */
+    footerLogo.style.width = '0';
+    observer.observe(footerLogo);
+}
 
+// ==========================================
+// SUCCESS MESSAGE
+// ==========================================
 
-    /* IMAGE */
+function initSuccessMessage() {
+    const msg = document.querySelector(".message-success");
+    if (!msg || getComputedStyle(msg).display === 'none') return;
 
-    tl.from(".middle", {
-        y: 80,
-        opacity: 0,
-        filter: "blur(10px)",
-        duration: 1.4,
-        ease: "power3.out"
-    }, "-=0.8");
+    setTimeout(() => {
+        msg.style.transition = 'all 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        msg.style.opacity = '0';
+        msg.style.transform = 'translate3d(0, -15px, 0) scale(0.96)';
+        msg.style.filter = 'blur(12px)';
 
-    /* TITRE */
+        msg.addEventListener('transitionend', () => {
+            msg.style.display = 'none';
+        }, { once: true });
+    }, 3000);
+}
 
-    tl.from(".end", {
-        y: 100,
-        opacity: 0,
-        filter: "blur(10px)",
-        duration: 1.2,
-        ease: "power3.out"
-    }, "-=1");
+// ==========================================
+// MOBILE WORK REVEAL
+// ==========================================
 
-});
-
-gsap.from(".tool-card", {
-    x: 180,
-    opacity: 0,
-    scale: 0.92,
-    rotate: 2,
-    filter: "blur(6px)",
-    duration: 1.3,
-    ease:  "power3.out",
-    scrollTrigger: {
-    trigger: ".tools-section",
-    start: "top 45%",
-    end: "top 25%",
-    scrub: 1
-    }
-});
-gsap.from(".tools-title", {
-    x: 180,
-    opacity: 0,
-    scale: 0.92,
-    rotate: 2,
-    filter: "blur(6px)",
-    duration: 1.3,
-    ease:  "power3.out",
-    scrollTrigger: {
-    trigger: ".tools-section",
-    start: "top 45%",
-    end:" top 25%",
-    scrub: 1
-    }
-});
-
-gsap.from("#footer", {
-    y: 120,
-    scale: 0.985,
-    filter: "blur(12px)",
-
-    scrollTrigger: {
-        trigger: "#footer",
-        start: "top 85%",
-        end: "top 65%",
-        scrub: 0.8
-    }
-});
-
-gsap.from(".footer-logo", {
-    width: 0,
-    duration: 1.8,
-    ease: "steps(5)",
-
-    scrollTrigger: {
-        trigger: "#footer",
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-    }
-});
-
-
-const contactTl = gsap.timeline({
-    scrollTrigger: {
-        trigger: "#contact",
-        start: "top 55%",
-        end: "top 10%",
-        scrub: 1.2
-    }
-});
-
-gsap.from(".recent-work", {
-    y: 200,
-    opacity: 0,
-    scale: 0.98,
-    filter: "blur(4px)",
-    ease: "expo.out",
-
-    scrollTrigger: {
-        trigger: ".recent-work",
-        start: "top 85%",
-        end: "top 35%",
-        scrub: 1
-    }
-});
-
-gsap.from(".work-card", {
-    y: 60,
-    opacity: 0,
-    scale: 0.96,
-    filter: "blur(10px)",
-    stagger: 0.08,
-    ease: "power3.out",
-    scrollTrigger: {
-        trigger: ".work-gallery",
-        start: "top 80%",
-        end: "top 45%",
-        scrub: 1
-    }
-});
-
-gsap.from(".recent-work-actions .view-more", {
-    y: 24,
-    opacity: 0,
-    filter: "blur(10px)",
-    ease: "power3.out",
-    scrollTrigger: {
-        trigger: ".recent-work-actions",
-        start: "top 80%",
-        end: "top 60%",
-        scrub: 1
-    }
-});
-
-/* TITLE */
-
-contactTl.from(".contact-title", {
-
-    y: 60,
-    opacity: 0,
-    filter: "blur(10px)",
-    duration: 1.4,
-    ease:  "power3.out"
-
-});
-
-
-/* DESCRIPTION */
-
-contactTl.from(".contact-description", {
-
-    y: 40,
-    opacity: 0,
-    filter: "blur(10px)",
-    duration: 1.5,
-    ease: "power3.out"
-
-}, "-=0.8");
-
-contactTl.from(".form-group:nth-child(1)", {
-
-    x: -180,
-    opacity: 0,
-    filter: "blur(10px)",
-    duration: 1.7,
-    ease: "power3.out"
-
-}, "-=0.3")
-
-
-.from(".form-group:nth-child(2)", {
-
-    x: 180,
-    opacity: 0,
-    filter: "blur(10px)",
-    duration: 1.8,
-    ease: "power3.out"
-
-}, "-=1.1")
-
-
-.from(".form-group:nth-child(3)", {
-
-    x: -180,
-    opacity: 0,
-    filter: "blur(10px)",
-    duration: 1.9,
-    ease: "power3.out"
-
-}, "-=1.1");
-/* BUTTON */
-
-contactTl.from(".btn-17", {
-
-    y: 80,
-    opacity: 0,
-    scale: 0.9,
-    filter: "blur(10px)",
-    duration: 2,
-    ease: "power3.out",
-    start: "top 50%",
-    end: "top 10%",
-
-}, "-=0.8");
-
-setTimeout(() => {
-
-    gsap.to(".message-success", {
-
-        opacity: 0,
-        y: -15,
-        scale: 0.96,
-        filter: "blur(12px)",
-        duration: 1.1,
-        ease: "power3.out",
-
-        onComplete: () => {
-            document.querySelector(".message-success").style.display = "none";
-        }
-    });
-
-}, 3000);
-
-/* Recent Work — mobile : 2 cartes visibles, « Voir plus » révèle le reste puis lien categories */
-(function initRecentWorkMobileReveal() {
+function initRecentWorkMobileReveal() {
     const section = document.getElementById("work");
     const viewMore = document.querySelector(".recent-work-actions .view-more");
     if (!section || !viewMore) return;
@@ -362,22 +344,42 @@ setTimeout(() => {
 
     viewMore.addEventListener("click", (e) => {
         if (!mq.matches) return;
-
-        const cards = section.querySelectorAll(".work-gallery .work-card");
-        if (cards.length <= 2) return;
+        if (section.querySelectorAll(".work-gallery .work-card").length <= 2) return;
 
         if (section.getAttribute("data-expanded") !== "true") {
             e.preventDefault();
             section.setAttribute("data-expanded", "true");
-            if (typeof ScrollTrigger !== "undefined") {
-                ScrollTrigger.refresh(true);
-            }
         }
     });
 
     mq.addEventListener("change", () => {
-        if (!mq.matches) {
-            section.removeAttribute("data-expanded");
-        }
+        if (!mq.matches) section.removeAttribute("data-expanded");
     });
-})();
+}
+
+// ==========================================
+// SMOOTH SCROLL
+// ==========================================
+
+function initSmoothScroll() {
+    document.documentElement.style.scrollBehavior = 'smooth';
+}
+
+// ==========================================
+// INIT
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    initSmoothScroll();
+    initNavHide();
+    initNavFooterColor();
+    initScrollAnimations();
+    initFooterLogo();
+    initSuccessMessage();
+    initRecentWorkMobileReveal();
+});
+
+window.addEventListener("load", () => {
+    initLoadAnimations();
+    initHeroParallax();
+});
