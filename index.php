@@ -5,9 +5,29 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     
+<meta
+      name="Portfolio"
+      content="Portfolio de Lxaa, étudiant en design graphique spécialisé dans le web design et l'expérience utilisateur. Découvrez mes projets récents, mes compétences en outils de design, et comment me contacter pour des collaborations ou des stages."
+      >
+    <link rel="apple-touch-icon" sizes="57x57" href="images/lxaa57x57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/lxaa72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/lxaa76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/lxaa114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/lxaa120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/lxaa144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/lxaa152x152.png">
+    <link rel="icon" type="image/png" href="images/lxaa196x196.png" sizes="196x196">
+    <link rel="icon" type="image/png" href="images/lxaa160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="images/lxaa96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="images/lxaa16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="images/lxaa32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/lxaa32x32.png">
     <link rel="stylesheet" href="dist/css/glightbox.css">
     <link rel="stylesheet" href="build/style.css">
+
     <title>LxaaPortfolio</title>
+
 </head>
 <body>
 <?php
@@ -55,11 +75,11 @@
         </div>
         <div class="right">
             <div class="year">
-                <p>•2023</p>
+                <p>•2024</p>
                 <p>First year of computer graphics</p>
             </div>
             <div class="year">
-                <p>•2024</p>
+                <p>•2025</p>
                 <p>Beginning portfolio</p>
             </div>
             <div class="year">

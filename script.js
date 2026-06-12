@@ -138,10 +138,6 @@ function initScrollAnimations() {
             stagger: 0.05
         },
         { 
-            selector: '.tools-title', 
-            from: { x: 180, rotate: 2, scale: 0.92, blur: 6 }
-        },
-        { 
             selector: '#footer', 
             from: { y: 120, scale: 0.985, blur: 12 }
         },
@@ -244,6 +240,51 @@ function applyAnimationState(el, ratio) {
     el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`;
     el.style.filter = blur > 0.1 ? `blur(${blur}px)` : 'none';
     el.style.opacity = opacity;
+}
+
+function initToolsTitleScrollAnimation() {
+    const section = document.querySelector('.tools-section');
+    const el = document.querySelector('.tools-title');
+    if (!section || !el) return;
+
+    const from = { x: 180, rotate: 2, scale: 0.92, blur: 6 };
+
+    el.style.willChange = 'transform, opacity, filter';
+    el._animConfig = {
+        x: from.x,
+        y: 0,
+        rotate: from.rotate,
+        scale: from.scale,
+        blur: from.blur,
+        delay: 0
+    };
+
+    let ticking = false;
+
+    function update() {
+        const vh = window.innerHeight;
+        const top = section.getBoundingClientRect().top;
+        const start = vh * 0.45;
+        const end = vh * 0.25;
+        const progress = clamp((start - top) / (start - end), 0, 1);
+
+        applyAnimationState(el, progress);
+        ticking = false;
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    }
+
+    applyAnimationState(el, 0);
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', update);
+    window.addEventListener('load', update);
+    requestAnimationFrame(() => requestAnimationFrame(update));
 }
 
 // ==========================================
@@ -374,6 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initNavHide();
     initNavFooterColor();
     initScrollAnimations();
+    initToolsTitleScrollAnimation();
     initFooterLogo();
     initSuccessMessage();
     initRecentWorkMobileReveal();
