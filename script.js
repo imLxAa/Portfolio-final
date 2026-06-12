@@ -491,6 +491,175 @@ function initSmoothScroll() {
 }
 
 // ==========================================
+// NAV DOTS (#circles)
+// ==========================================
+
+function initCircleNav() {
+    const circles = document.getElementById('circles');
+    if (!circles) return;
+
+    const imgs = circles.querySelectorAll('img');
+    if (imgs.length !== 4) return;
+
+    const sections = ['about', 'tools', 'work', 'contact']
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+    if (sections.length !== 4) return;
+
+    let navDotStyle = document.getElementById('nav-dot-styles');
+    if (!navDotStyle) {
+        navDotStyle = document.createElement('style');
+        navDotStyle.id = 'nav-dot-styles';
+        document.head.appendChild(navDotStyle);
+    }
+    navDotStyle.textContent = `
+            #circles {
+                overflow: visible;
+            }
+            #circles .nav-dot-wrap {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                line-height: 0;
+                width: 12px;
+                height: 12px;
+                overflow: visible;
+            }
+            #circles .nav-dot-wrap img {
+                position: relative;
+                z-index: 2;
+                display: block;
+                pointer-events: none;
+            }
+            #circles .nav-dot-aura {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 12px;
+                height: 12px;
+                margin: -6px 0 0 -6px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(0, 0, 0, 0.88) 0%,
+                    rgba(0, 0, 0, 0.68) 22%,
+                    rgba(0, 0, 0, 0.42) 48%,
+                    rgba(0, 0, 0, 0.18) 68%,
+                    rgba(0, 0, 0, 0) 82%
+                );
+                pointer-events: none;
+                z-index: 1;
+                opacity: 0;
+                transform: scale(1);
+                transform-origin: center center;
+                filter: blur(0);
+                will-change: transform, opacity, filter;
+                transition: opacity 0.35s ease-out, transform 0.35s ease-out, filter 0.35s ease-out;
+            }
+            #circles .nav-dot-wrap.is-active .nav-dot-aura {
+                opacity: 1;
+                transform: scale(1.55);
+                filter: blur(3.5px);
+                animation: nav-dot-aura-in 0.35s ease-out forwards;
+            }
+            @keyframes nav-dot-aura-in {
+                0% {
+                    opacity: 0.9;
+                    transform: scale(1);
+                    filter: blur(0);
+                }
+                55% {
+                    opacity: 1;
+                    transform: scale(1.68);
+                    filter: blur(4px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1.55);
+                    filter: blur(3.5px);
+                }
+            }
+        `;
+
+    circles.style.pointerEvents = 'auto';
+
+    const labels = ['About', 'Tools', 'Works', 'Contact'];
+    const wraps = [];
+
+    imgs.forEach((img, index) => {
+        const wrap = document.createElement('span');
+        wrap.className = 'nav-dot-wrap';
+        wrap.setAttribute('role', 'button');
+        wrap.setAttribute('tabindex', '0');
+        wrap.setAttribute('aria-label', labels[index]);
+
+        const aura = document.createElement('span');
+        aura.className = 'nav-dot-aura';
+        aura.setAttribute('aria-hidden', 'true');
+
+        img.parentNode.insertBefore(wrap, img);
+        wrap.appendChild(aura);
+        wrap.appendChild(img);
+
+        wraps.push(wrap);
+
+        const goTo = () => {
+            sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setActive(index);
+        };
+
+        wrap.addEventListener('click', goTo);
+        wrap.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                goTo();
+            }
+        });
+    });
+
+    let activeIndex = -1;
+
+    function setActive(index) {
+        if (index === activeIndex) return;
+        activeIndex = index;
+        wraps.forEach((wrap, i) => {
+            const isActive = i === index;
+            wrap.classList.toggle('is-active', isActive);
+            if (!isActive) return;
+            const aura = wrap.querySelector('.nav-dot-aura');
+            if (!aura) return;
+            aura.style.animation = 'none';
+            void aura.offsetWidth;
+            aura.style.animation = '';
+        });
+    }
+
+    function updateActiveFromScroll() {
+        const marker = window.scrollY + window.innerHeight * 0.35;
+        let next = 0;
+        sections.forEach((section, i) => {
+            if (section.offsetTop <= marker) next = i;
+        });
+        setActive(next);
+    }
+
+    let scrollTicking = false;
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            scrollTicking = true;
+            requestAnimationFrame(() => {
+                updateActiveFromScroll();
+                scrollTicking = false;
+            });
+        }
+    }, { passive: true });
+
+    updateActiveFromScroll();
+}
+
+// ==========================================
 // INIT
 // ==========================================
 
@@ -504,6 +673,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initFooterLogo();
     initSuccessMessage();
     initRecentWorkMobileReveal();
+    initCircleNav();
 });
 
 window.addEventListener("load", () => {
