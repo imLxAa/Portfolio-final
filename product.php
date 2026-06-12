@@ -55,7 +55,7 @@
 ?>
 <a href="categories.php" class="projects-back projects-back--side" aria-label="Retour aux projets">← Retour aux projets</a>
 <div class="container product-page">
-    <div class="row my-5">
+    <div class="row">
         <div class="col-md-6">
             <a href='images/<?= $don['cover'] ?>' class="myimg">
                 <img src="images/<?= $don['cover'] ?>" alt="image de <?= $don['name'] ?>" class="img-fluid">

@@ -983,8 +983,17 @@ nav {
 }
 
 /* ——— Page projet (product.php) ——— */
+body.page-product .panel {
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
 .page-product {
   background-color: #f4f4f4;
+}
+
+.page-product .main-nav {
+  margin: 0;
 }
 
 @media (min-width: 768px) {
@@ -1003,22 +1012,21 @@ nav {
 }
 
 .page-product .product-page {
-  padding: clamp(1rem, 3vh, 2rem) 0;
   margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .page-product .product-page {
     flex: 1;
-    min-height: 0;
+    min-height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: clamp(0.75rem, 2vh, 1.5rem) 0;
+    padding: clamp(0.5rem, 1.5vh, 1rem) 0;
   }
 }
 
-.page-product .product-page > .row.my-5 {
+.page-product .product-page > .row {
   --bs-gutter-x: 0;
   --bs-gutter-y: 0;
   display: flex;
@@ -1028,21 +1036,107 @@ nav {
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
-  min-width: 0;
-  min-height: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  min-height: auto;
+  height: auto;
+  overflow: visible;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
-  .page-product .product-page > .row.my-5 {
+  .page-product .product-page > .row {
     flex: 0 1 auto;
+    max-width: 86vw;
+    aspect-ratio: auto;
+    height: auto;
+    max-height: none;
+    min-height: auto;
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .page-product {
+    height: auto;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .page-product .product-page {
+    padding: clamp(0.75rem, 2vh, 1.5rem) 0;
+  }
+
+  .page-product .product-page > .row {
     max-width: 88vw;
     aspect-ratio: auto;
     height: auto;
     max-height: none;
-    min-height: clamp(28rem, 62dvh, 40rem);
+    min-height: auto;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .page-product .product-page > .row > .col-md-6:last-child {
+    height: auto;
+    overflow: visible;
+  }
+
+  .page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel) {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+@media (min-width: 1025px) {
+  .page-product {
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .page-product .product-page {
+    flex: 1;
+    min-height: 0;
+    padding: clamp(0.5rem, 1.5vh, 1rem) 0;
+  }
+
+  .page-product .product-page > .row {
+    --product-card-max-h: calc(100dvh - 7rem);
+    flex: 0 1 auto;
+    max-width: 86vw;
+    width: min(86vw, calc(var(--product-card-max-h) * 420 / 297));
+    height: min(calc(86vw * 297 / 420), var(--product-card-max-h));
+    max-height: var(--product-card-max-h);
+    aspect-ratio: 420 / 297;
+    min-height: 0;
+    overflow: hidden;
     margin-inline: auto;
+  }
+
+  .page-product .product-page > .row > .col-md-6:last-child {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel) {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    overflow: visible;
+  }
+}
+
+@media (min-width: 2000px) {
+  .page-product .product-page > .row {
+    --product-card-max-h: min(calc(100dvh - 7rem), 50rem);
+    --product-card-max-w: min(64vw, 67.5rem);
+    max-width: var(--product-card-max-w);
+    width: min(var(--product-card-max-w), calc(var(--product-card-max-h) * 420 / 297));
+    height: min(calc(var(--product-card-max-w) * 297 / 420), var(--product-card-max-h));
+    max-height: var(--product-card-max-h);
   }
 }
 
@@ -1077,22 +1171,18 @@ nav {
   flex: 0 0 50%;
   max-width: 50%;
   min-width: 0;
-  min-height: 0;
+  min-height: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  gap: clamp(0.75rem, 1.5vw, 1.25rem);
-  padding: clamp(1.5rem, 3vh, 3rem) clamp(2rem, 4vw, 5rem);
+  gap: clamp(0.375rem, 0.75vw, 0.625rem);
+  padding: clamp(1.25rem, 3vw, 2.25rem) clamp(1.75rem, 4.5vw, 3rem);
   box-sizing: border-box;
   font-family: 'montserrat', sans-serif;
   color: #111;
-  overflow-x: hidden;
-  overflow-y: visible;
-  visibility: visible;
-  opacity: 1;
-  position: relative;
-  z-index: 1;
+  overflow: visible;
 }
 
 .page-product .product-page > .row > .col-md-6:last-child h1,
@@ -1114,7 +1204,7 @@ nav {
   font-size: 0.875rem;
   font-weight: 400;
   color: #666;
-  margin: 0;
+  margin: 0 0 clamp(1.25rem, 2.5vh, 1.75rem);
 }
 
 .page-product .product-page > .row > .col-md-6:last-child > h4:last-of-type,
@@ -1123,28 +1213,27 @@ nav {
 }
 
 .page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel) {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-width: 0;
-  max-width: 100%;
-  width: 100%;
-  min-height: 0;
-  overflow-x: hidden;
-  overflow-y: visible;
+  min-height: auto;
+  overflow: visible;
+  box-sizing: border-box;
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
-  padding: clamp(1rem, 2vh, 1.5rem) 0 clamp(1.25rem, 2.5vh, 1.75rem);
+  padding: 0.375rem 0;
   font-size: clamp(0.875rem, 1.5vw, 0.9375rem);
-  line-height: 1.8;
+  line-height: 1.55;
   color: #333;
-  margin: clamp(0.5rem, 1vh, 1rem) 0 0;
+  margin: 0;
 }
 
 .page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel) * {
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  word-break: break-word;
   max-width: 100%;
 }
 
@@ -2064,6 +2153,7 @@ nav {
         padding-top: clamp(0.75rem, 2vh, 1.5rem);
     }
 
+
     .cross,
     .top-cross,
     .bottom-cross,
@@ -2413,12 +2503,12 @@ nav {
     flex: none;
     display: block;
     padding:
-      clamp(1.25rem, 4vh, 2rem)
+      clamp(4.75rem, 13vw, 5.75rem)
       clamp(1.5rem, 6vw, 2rem)
       clamp(2rem, 5vh, 3rem);
   }
 
-  .page-product .product-page > .row.my-5 {
+  .page-product .product-page > .row {
     flex-direction: column;
     flex-wrap: wrap;
     min-height: 0;
@@ -2428,9 +2518,17 @@ nav {
     width: 94%;
     max-width: 94%;
     margin-inline: auto;
+    border-radius: 20px;
+    overflow: hidden;
   }
 
-  .page-product .product-page > .row > .col-md-6:first-child,
+  .page-product .product-page > .row > .col-md-6:first-child {
+    flex: 0 0 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+  }
+
   .page-product .product-page > .row > .col-md-6:last-child {
     flex: 0 0 100%;
     max-width: 100%;
