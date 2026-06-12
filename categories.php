@@ -25,6 +25,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<?php include("partials/favicon.php"); ?>
     <link rel="stylesheet" href="build/style.css">
     <title>Voir plus de projets — LxaaPortfolio</title>
 </head>
