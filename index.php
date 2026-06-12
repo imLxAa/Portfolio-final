@@ -164,7 +164,7 @@
         ?>
         <form action="treatmentContact.php" method="POST" class="contact-form">
             <div class="form-group">
-                <input type="text" name="nom" placeholder="nom">
+                <input type="text" name="nom" placeholder="name" id="name">
             </div>
             <div class="form-group">
                 <input type="email" name="email" id="email" placeholder="e-mail">
