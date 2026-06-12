@@ -315,44 +315,55 @@ body {
 
 .about{
     padding: 120px 80px;
-    text-align: center;
-}
-
-.introduction {
-    max-width: 800px;
-    margin: 0 auto 70px;
-    line-height: 1.6;
-    text-align: left;
-    font-family: 'montserrat', sans-serif;}
-
-.about-flex {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 400px;
 }
 
 .about h5 {
     font-family: 'horizon', sans-serif;
     font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: clamp(2.5rem, 5vh, 3.75rem);
+    text-align: center;
 }
+
+.introduction {
+    max-width: min(56rem, 100%);
+    margin: 0 auto clamp(2.5rem, 5vh, 4.375rem);
+    padding-inline: clamp(0.25rem, 2vw, 1rem);
+    line-height: 1.6;
+    text-align: left;
+    font-family: 'montserrat', sans-serif;
+}
+
+.about-flex {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    max-width: min(56rem, 100%);
+    margin-inline: auto;
+    padding-inline: clamp(0.25rem, 2vw, 1rem);
+    box-sizing: border-box;
+}
+
 .portrait {
     width: 140px;
     height: 140px;
     border-radius: 14px;
-    box-shadow: 
-    0 2px 4px rgba(0,0,0,0.04),
-    0 10px 30px rgba(0,0,0,0.08),
-    0 20px 40px rgba(0,0,0,0.04);
+    object-fit: cover;
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.04),
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 20px 40px rgba(0, 0, 0, 0.04);
 }
 
 .right {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.25rem, 3vh, 1.75rem) clamp(2rem, 5vw, 3.5rem);
     text-align: left;
 }
 
 .year {
-    margin-bottom: 25px;
+    margin-bottom: 0;
     font-family: 'montserrat', sans-serif;
 }
 
@@ -361,7 +372,7 @@ body {
     margin: 0;
 }
 
-/* ——— About : responsive (desktop ≥1025px = styles de base inchangés) ——— */
+/* ——— About : responsive ——— */
 @media (max-width: 1024px) {
     .about {
         padding: var(--section-pad-y) var(--section-pad-x);
@@ -370,26 +381,13 @@ body {
         overflow-x: clip;
     }
 
-    .about .introduction {
-        max-width: min(50rem, 100%);
-        margin-inline: auto;
-        margin-bottom: clamp(2rem, 5vh, 4.375rem);
-        padding-inline: clamp(0.25rem, 2vw, 1rem);
+    .introduction {
         font-size: clamp(0.9375rem, 2.8vw, 1rem);
         line-height: 1.65;
     }
 
-    .about-flex {
-        gap: clamp(2rem, 8vw, 5rem);
-        max-width: 100%;
-        margin-inline: auto;
-        padding-inline: clamp(0.25rem, 2vw, 1rem);
-        box-sizing: border-box;
-    }
-
     .about .portrait {
         max-width: 100%;
-        height: auto;
     }
 }
 
@@ -399,7 +397,7 @@ body {
         padding-inline: clamp(1rem, 4vw, 1.5rem);
     }
 
-    .about .introduction {
+    .introduction {
         margin-bottom: clamp(1.75rem, 4vh, 3rem);
     }
 
@@ -410,24 +408,19 @@ body {
     }
 
     .about .left {
-        display: flex;
-        justify-content: center;
         width: 100%;
+        max-width: min(100%, 22rem);
     }
 
     .about .portrait {
         width: min(100%, clamp(7.5rem, 42vw, 10rem));
         aspect-ratio: 1;
-        object-fit: cover;
     }
 
-    .about .right {
+    .right {
         width: 100%;
         max-width: min(100%, 22rem);
-    }
-
-    .about .year {
-        margin-bottom: clamp(1rem, 3vh, 1.5625rem);
+        grid-template-columns: 1fr;
     }
 
     .about .year p {
@@ -439,10 +432,10 @@ body {
 @media (max-width: 480px) {
     .about h5 {
         font-size: clamp(0.75rem, 2.5vw, 0.875rem);
-        margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+        margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
     }
 
-    .about .introduction {
+    .introduction {
         font-size: clamp(0.875rem, 3.5vw, 0.9375rem);
     }
 }
@@ -2339,6 +2332,14 @@ nav {
 
     .form-group textarea {
         height: clamp(220px, 52vw, 300px);
+    }
+
+    .footer-logo {
+        font-size: clamp(2rem, 10vw, 4.75rem);
+    }
+
+    .footer-logo span {
+        font-size: 0.33em;
     }
 }
 

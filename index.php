@@ -66,25 +66,25 @@
 <section class="about reveal-left" id="about">
     <h5>WHO AM I ?</h5>
     <p class="introduction">
-        I am Alexandre / Lxaa. <br>
+        <strong>I am Alexandre / Lxaa.</strong><br>
         Graphic design student in Belgium, passionate about design and web experience.
     </p>
     <div class="about-flex">
         <div class="left">
-            <img src="images/moipetit.jpg" class="portrait">
+            <img src="images/moipetit.jpg" class="portrait" alt="Portrait of Alexandre">
         </div>
         <div class="right">
             <div class="year">
-                <p>•2024</p>
+                <p>• 2024</p>
                 <p>First year of computer graphics</p>
             </div>
             <div class="year">
-                <p>•2025</p>
+                <p>• 2025</p>
                 <p>Beginning portfolio</p>
             </div>
             <div class="year">
-                <p>•FUTUR</p>
-                <p>Portfolios interactifs / UX</p>
+                <p>• FUTUR</p>
+                <p>Portfolio intercatif / UX</p>
             </div>
         </div>
     </div>

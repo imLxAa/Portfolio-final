@@ -446,16 +446,27 @@ function initLoadAnimations() {
 // ==========================================
 
 function initFooterLogo() {
-    const footerLogo = document.querySelector(".footer-logo");
-    if (!footerLogo) return;
+    const footer = document.querySelector('#footer');
+    const footerLogo = document.querySelector('.footer-logo');
+    if (!footer || !footerLogo) return;
 
     let animated = false;
 
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting && !animated) {
+                footerLogo.style.transition = 'none';
+                footerLogo.style.width = 'fit-content';
+                const fullWidth = footerLogo.getBoundingClientRect().width;
+                footerLogo.style.width = '0';
+                void footerLogo.offsetWidth;
                 footerLogo.style.transition = 'width 1.8s steps(5)';
-                footerLogo.style.width = '';
+                footerLogo.style.width = `${fullWidth}px`;
+                footerLogo.addEventListener('transitionend', function onWidthEnd(e) {
+                    if (e.propertyName !== 'width') return;
+                    footerLogo.style.width = '';
+                    footerLogo.removeEventListener('transitionend', onWidthEnd);
+                });
                 animated = true;
             } else if (!entry.isIntersecting && animated) {
                 footerLogo.style.transition = 'none';
@@ -466,7 +477,7 @@ function initFooterLogo() {
     }, { threshold: 0.1 });
 
     footerLogo.style.width = '0';
-    observer.observe(footerLogo);
+    observer.observe(footer);
 }
 
 // ==========================================
