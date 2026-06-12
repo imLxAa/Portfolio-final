@@ -158,19 +158,6 @@ function initScrollAnimations() {
         { 
             selector: '.btn-17', 
             from: { y: 80, scale: 0.9, blur: 10 }
-        },
-        { 
-            selector: '.recent-work', 
-            from: { y: 200, scale: 0.98, blur: 4 }
-        },
-        { 
-            selector: '.work-card', 
-            from: { y: 60, scale: 0.96, blur: 10 },
-            stagger: 0.06
-        },
-        { 
-            selector: '.recent-work-actions .view-more', 
-            from: { y: 24, blur: 10 }
         }
     ];
 
@@ -240,6 +227,102 @@ function applyAnimationState(el, ratio) {
     el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`;
     el.style.filter = blur > 0.1 ? `blur(${blur}px)` : 'none';
     el.style.opacity = opacity;
+}
+
+const recentWorkScrollObservers = [];
+
+const RECENT_WORK_SCROLL_CONFIGS = [
+    { selector: '.recent-work', from: { y: 200, scale: 0.98, blur: 4 } },
+    { selector: '.work-card', from: { y: 60, scale: 0.96, blur: 10 }, stagger: 0.06 },
+    { selector: '.recent-work-actions .view-more', from: { y: 24, blur: 10 } }
+];
+
+function clearScrollAnimInline(el) {
+    el.style.removeProperty('transform');
+    el.style.removeProperty('filter');
+    el.style.removeProperty('opacity');
+    el.style.removeProperty('will-change');
+    delete el._animConfig;
+}
+
+function teardownRecentWorkScrollAnimations() {
+    recentWorkScrollObservers.forEach((observer) => observer.disconnect());
+    recentWorkScrollObservers.length = 0;
+    document.querySelectorAll('.recent-work, .work-card, .recent-work-actions .view-more').forEach(clearScrollAnimInline);
+}
+
+function enableDesktopRecentWorkScrollAnimations() {
+    RECENT_WORK_SCROLL_CONFIGS.forEach((config) => {
+        const elements = document.querySelectorAll(config.selector);
+        if (!elements.length) return;
+
+        elements.forEach((el, index) => {
+            el.style.willChange = 'transform, opacity, filter';
+
+            let xValue = config.from.x || 0;
+            el._animConfig = {
+                x: xValue,
+                y: config.from.y || 0,
+                rotate: config.from.rotate || 0,
+                scale: config.from.scale || 1,
+                blur: config.from.blur || 0,
+                delay: config.stagger ? index * config.stagger : 0
+            };
+
+            applyAnimationState(el, 0);
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                applyAnimationState(entry.target, entry.intersectionRatio);
+            });
+        }, {
+            threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+            rootMargin: '0px 0px -5% 0px'
+        });
+
+        elements.forEach((el) => observer.observe(el));
+        recentWorkScrollObservers.push(observer);
+    });
+}
+
+function enableMobileRecentWorkScrollAnimations() {
+    const section = document.getElementById('work');
+    document.querySelectorAll('.recent-work, .work-card, .recent-work-actions .view-more').forEach((el) => {
+        clearScrollAnimInline(el);
+        el.style.opacity = '1';
+        el.style.willChange = 'auto';
+    });
+
+    section?.querySelectorAll('.work-gallery .work-card img').forEach((img) => {
+        if (!img.dataset.coverSrc) {
+            img.dataset.coverSrc = img.getAttribute('src') || '';
+        }
+        const fullSrc = img.dataset.coverSrc.replace('mini_', '');
+        if (img.src !== fullSrc) {
+            img.src = fullSrc;
+        }
+        img.loading = 'eager';
+    });
+}
+
+function restoreDesktopRecentWorkImages() {
+    document.querySelectorAll('.work-gallery .work-card img').forEach((img) => {
+        if (img.dataset.coverSrc) {
+            img.src = img.dataset.coverSrc;
+        }
+        img.loading = 'lazy';
+    });
+}
+
+function syncRecentWorkScrollAnimations() {
+    teardownRecentWorkScrollAnimations();
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        enableMobileRecentWorkScrollAnimations();
+    } else {
+        restoreDesktopRecentWorkImages();
+        enableDesktopRecentWorkScrollAnimations();
+    }
 }
 
 function initToolsTitleScrollAnimation() {
@@ -395,6 +478,7 @@ function initRecentWorkMobileReveal() {
 
     mq.addEventListener("change", () => {
         if (!mq.matches) section.removeAttribute("data-expanded");
+        syncRecentWorkScrollAnimations();
     });
 }
 
@@ -415,6 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initNavHide();
     initNavFooterColor();
     initScrollAnimations();
+    syncRecentWorkScrollAnimations();
     initToolsTitleScrollAnimation();
     initFooterLogo();
     initSuccessMessage();

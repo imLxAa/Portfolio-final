@@ -31,7 +31,7 @@
             {
                 $pg = 1;
             }else{
-                $pg = htmlspecialchars($_GET['page']);
+                $pg = (int) $_GET['page'];
             }
         }else{
             header("LOCATION:404.php");
@@ -194,13 +194,21 @@
 
         <nav aria-label="...">
           <ul class="pagination">
-            <li class="page-item"><a href="#" class="page-link">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#" aria-current="page">2</a>
+            <?php if ($pg > 1): ?>
+            <li class="page-item"><a href="products.php?page=<?= $pg - 1 ?>" class="page-link">Previous</a></li>
+            <?php else: ?>
+            <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $nbPage; $i++): ?>
+            <li class="page-item<?= $i === $pg ? ' active' : '' ?>">
+              <a class="page-link" href="products.php?page=<?= $i ?>"<?= $i === $pg ? ' aria-current="page"' : '' ?>><?= $i ?></a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <?php endfor; ?>
+            <?php if ($pg < $nbPage): ?>
+            <li class="page-item"><a href="products.php?page=<?= $pg + 1 ?>" class="page-link">Next</a></li>
+            <?php else: ?>
+            <li class="page-item disabled"><a href="#" class="page-link">Next</a></li>
+            <?php endif; ?>
           </ul>
         </nav>
     
