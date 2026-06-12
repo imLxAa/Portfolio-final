@@ -211,6 +211,7 @@ function initScrollAnimations() {
 }
 
 function applyAnimationState(el, ratio) {
+    if (el._animLocked) return;
     const config = el._animConfig;
     if (!config) return;
 
@@ -223,9 +224,12 @@ function applyAnimationState(el, ratio) {
     const scale = config.scale + (1 - config.scale) * eased;
     const blur = config.blur * (1 - eased);
     const opacity = eased;
+    const skipBlur = el._skipBlur || (
+        el.classList.contains('recent-work') && el.getAttribute('data-expanded') === 'true'
+    );
 
     el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`;
-    el.style.filter = blur > 0.1 ? `blur(${blur}px)` : 'none';
+    el.style.filter = !skipBlur && blur > 0.1 ? `blur(${blur}px)` : 'none';
     el.style.opacity = opacity;
 }
 
@@ -243,6 +247,8 @@ function clearScrollAnimInline(el) {
     el.style.removeProperty('opacity');
     el.style.removeProperty('will-change');
     delete el._animConfig;
+    delete el._animLocked;
+    delete el._skipBlur;
 }
 
 function teardownRecentWorkScrollAnimations() {
@@ -274,6 +280,7 @@ function enableDesktopRecentWorkScrollAnimations() {
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
+                if (entry.target._animLocked) return;
                 applyAnimationState(entry.target, entry.intersectionRatio);
             });
         }, {
@@ -286,14 +293,8 @@ function enableDesktopRecentWorkScrollAnimations() {
     });
 }
 
-function enableMobileRecentWorkScrollAnimations() {
+function swapRecentWorkImagesForMobile() {
     const section = document.getElementById('work');
-    document.querySelectorAll('.recent-work, .work-card, .recent-work-actions .view-more').forEach((el) => {
-        clearScrollAnimInline(el);
-        el.style.opacity = '1';
-        el.style.willChange = 'auto';
-    });
-
     section?.querySelectorAll('.work-gallery .work-card img').forEach((img) => {
         if (!img.dataset.coverSrc) {
             img.dataset.coverSrc = img.getAttribute('src') || '';
@@ -303,6 +304,39 @@ function enableMobileRecentWorkScrollAnimations() {
             img.src = fullSrc;
         }
         img.loading = 'eager';
+    });
+}
+
+function revealExpandedWorkCardsInstantly(section) {
+    section._skipBlur = true;
+    section.style.filter = 'none';
+
+    section.querySelectorAll('.work-gallery .work-card').forEach((card, index) => {
+        if (index < 2) return;
+        card._animLocked = true;
+        card.style.willChange = 'auto';
+        card.style.transform = 'none';
+        card.style.filter = 'none';
+        card.style.opacity = '1';
+    });
+}
+
+function refreshRecentWorkScrollStates() {
+    const vh = window.innerHeight;
+    document.querySelectorAll('.recent-work, .work-card, .recent-work-actions .view-more').forEach((el) => {
+        if (el._animLocked) return;
+        if (!el._animConfig) return;
+        if (el.classList.contains('work-card') && getComputedStyle(el).display === 'none') {
+            applyAnimationState(el, 0);
+            return;
+        }
+        const rect = el.getBoundingClientRect();
+        if (rect.height <= 0) {
+            applyAnimationState(el, 0);
+            return;
+        }
+        const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+        applyAnimationState(el, clamp(visible / rect.height, 0, 1));
     });
 }
 
@@ -318,11 +352,11 @@ function restoreDesktopRecentWorkImages() {
 function syncRecentWorkScrollAnimations() {
     teardownRecentWorkScrollAnimations();
     if (window.matchMedia('(max-width: 768px)').matches) {
-        enableMobileRecentWorkScrollAnimations();
+        swapRecentWorkImagesForMobile();
     } else {
         restoreDesktopRecentWorkImages();
-        enableDesktopRecentWorkScrollAnimations();
     }
+    enableDesktopRecentWorkScrollAnimations();
 }
 
 function initToolsTitleScrollAnimation() {
@@ -473,6 +507,7 @@ function initRecentWorkMobileReveal() {
         if (section.getAttribute("data-expanded") !== "true") {
             e.preventDefault();
             section.setAttribute("data-expanded", "true");
+            revealExpandedWorkCardsInstantly(section);
         }
     });
 
