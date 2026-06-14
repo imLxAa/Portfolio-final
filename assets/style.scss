@@ -69,6 +69,30 @@ $margin-menu: 40px;
     filter: grayscale(0%);
 }
 
+@mixin card-text-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(17, 17, 17, 0.28) transparent;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(17, 17, 17, 0.28);
+        border-radius: 999px;
+    }
+
+    &::-webkit-scrollbar-button {
+        display: none;
+        height: 0;
+        width: 0;
+    }
+}
+
 html {
     overflow-x: clip;
 }
@@ -1213,6 +1237,32 @@ body.page-product .panel {
   margin: 0;
 }
 
+/* Laptop / écrans < ~22″ : carte product légèrement réduite, texte scrollable in-card */
+@media (min-width: 1025px) and (max-width: 1999px) {
+  .page-product .product-page > .row {
+    width: min(82vw, calc((100dvh - 6.5rem) * 420 / 297), 48rem);
+    max-width: min(82vw, calc((100dvh - 6.5rem) * 420 / 297), 48rem);
+    max-height: calc(100dvh - 6.5rem);
+    overflow: hidden;
+  }
+
+  .page-product .product-page > .row > .col-md-6:last-child {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel) {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 15px;
+    scrollbar-gutter: stable;
+    @include card-text-scroll;
+  }
+}
+
 .page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel) * {
   white-space: normal;
   word-wrap: break-word;
@@ -1418,6 +1468,19 @@ body.page-product .panel {
 .project-card-body h2 {
   font-size: 18px;
   margin-bottom: 6px;
+}
+
+@media (min-width: 769px) and (max-width: 1999px) {
+  .projects-grid {
+    gap: clamp(20px, 2.4vw, 26px);
+    max-width: min(1180px, calc(100% - clamp(24px, 4vw, 48px)));
+    padding-inline: clamp(8px, 1.5vw, 16px);
+    box-sizing: border-box;
+  }
+
+  .project-card {
+    max-width: min(300px, 100%);
+  }
 }
 
 .project-date {
