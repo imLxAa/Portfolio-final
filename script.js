@@ -45,28 +45,21 @@ function initNavHide() {
 // ==========================================
 
 function initNavFooterColor() {
-    const nav = document.querySelector(".main-nav");
     const footer = document.querySelector("#footer");
     const body = document.body;
 
-    if (!nav || !footer) return;
+    if (!footer) return;
 
-    let ticking = false;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            body.classList.toggle("footer-visible", entry.isIntersecting);
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: "0px",
+    });
 
-    window.addEventListener("scroll", () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                const footerTop = footer.offsetTop;
-                const scrollPos = window.scrollY + window.innerHeight / 2;
-                const inFooter = scrollPos >= footerTop;
-
-                nav.classList.toggle("white", inFooter);
-                body?.classList.toggle("hide-deco", inFooter);
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }, { passive: true });
+    observer.observe(footer);
 }
 
 // ==========================================
