@@ -919,7 +919,7 @@ nav {
   @include card-image-hover;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1026px) {
   .work-card--featured {
     flex: 2.2;
     min-width: 200px;
@@ -933,6 +933,7 @@ nav {
 
 .projects-page {
   min-height: 100vh;
+  min-height: 100dvh;
   padding: var(--section-pad-y) var(--section-pad-x);
   display: flex;
   flex-direction: column;
@@ -1042,6 +1043,7 @@ body.page-product .panel {
 @media (min-width: 768px) {
   .page-product {
     height: auto;
+    min-height: 100vh;
     min-height: 100dvh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -1074,7 +1076,7 @@ body.page-product .panel {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1025px) {
   .page-product .product-page {
     flex: 1 0 auto;
     min-height: auto;
@@ -1117,9 +1119,11 @@ body.page-product .panel {
   }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1026px) {
   .page-product {
+    height: 100vh;
     height: 100dvh;
+    min-height: 100vh;
     min-height: 100dvh;
     overflow: hidden;
   }
@@ -1982,7 +1986,7 @@ body.page-product .panel {
 }
 
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1025px) {
     :root {
         --work-card-height: clamp(280px, 38vw, 400px);
     }
@@ -2042,7 +2046,7 @@ body.page-product .panel {
 }
 
 /* Desktop : rendu d’origine inchangé */
-@media (min-width: 1025px) {
+@media (min-width: 1026px) {
     .recent-work {
         padding: 120px 80px;
         display: block;
@@ -2114,10 +2118,6 @@ body.page-product .panel {
     .footer-logo {
         font-size: clamp(2.5rem, 14vw, 6.25rem);
         max-width: 100%;
-    }
-
-    .page-projects .projects-page {
-        padding-top: clamp(5.5rem, 12vh, 7rem);
     }
 
     .cross,
@@ -2459,6 +2459,19 @@ body.page-product .panel {
 
 /* ——— Navbar mobile/tablette (≤1025px) ——— */
 @media (max-width: 1025px) {
+    :root {
+        --nav-pad-block: clamp(0.875rem, 3vw, 1.125rem);
+        --nav-pad-inline: clamp(1rem, 4vw, 1.5rem);
+        --nav-logo-size: 1.25rem;
+        --nav-back-gap: 0.75rem;
+        --nav-back-offset: clamp(0.75rem, 3vw, 1.375rem);
+        --nav-back-size: 2.75rem;
+        --nav-chrome-height: calc(
+            var(--nav-pad-block) + var(--nav-logo-size) + var(--nav-back-gap) +
+            var(--nav-back-offset) + var(--nav-back-size)
+        );
+    }
+
     .main-nav {
         flex-wrap: nowrap;
         justify-content: space-between;
@@ -2479,11 +2492,14 @@ body.page-product .panel {
         justify-content: center;
         position: fixed;
         z-index: 201;
-        top: calc(clamp(1rem, 3vw, 1.25rem) + 1.25rem + 0.75rem + clamp(0.75rem, 3vw, 1.375rem));
-        left: clamp(1rem, 4vw, 1.5rem);
+        top: calc(
+            var(--nav-pad-block) + var(--nav-logo-size) + var(--nav-back-gap) +
+            var(--nav-back-offset)
+        );
+        left: var(--nav-pad-inline);
         margin-top: 0;
-        width: 2.75rem;
-        height: 2.75rem;
+        width: var(--nav-back-size);
+        height: var(--nav-back-size);
         padding: 0;
         border-radius: 50%;
         @include glass-ui;
@@ -2504,9 +2520,7 @@ body.page-product .panel {
 
     nav.main-nav {
         margin: 0;
-        padding:
-            clamp(0.875rem, 3vw, 1.125rem)
-            clamp(1rem, 4vw, 1.5rem);
+        padding: var(--nav-pad-block) var(--nav-pad-inline);
         background: transparent;
         isolation: isolate;
     }
@@ -2569,12 +2583,24 @@ body.page-product .panel {
         flex-shrink: 0;
         width: 100%;
     }
+
+    .page-projects .projects-page {
+        padding-top: calc(var(--nav-chrome-height) + clamp(0.75rem, 2vh, 1.25rem));
+    }
+
+    .page-product .product-page {
+        padding-top: calc(var(--nav-chrome-height) + clamp(0.5rem, 2vh, 1rem));
+    }
 }
 
 /* ——— Navbar desktop (≥1026px) ——— */
 @media (min-width: 1026px) {
     .main-nav > ul {
         display: flex;
+    }
+
+    #burger {
+        display: none;
     }
 
     nav.main-nav::before {
@@ -2625,15 +2651,10 @@ body.page-product .panel {
     }
 }
 
-/* ——— Mobile uniquement (≤767px) : about, tools, ajustements retour ——— */
+/* ——— Mobile uniquement (≤767px) : about, tools ——— */
 @media (max-width: 767px) {
-    .projects-back--nav {
-        top: calc(clamp(0.875rem, 3vw, 1.125rem) + 1.25rem + 0.75rem + clamp(1rem, 4.5vw, 1.5625rem));
-        left: clamp(1rem, 4vw, 1.5rem);
-    }
-
-    .page-projects .projects-page {
-        padding-top: clamp(5.5rem, 14vw, 6.75rem);
+    :root {
+        --nav-back-offset: clamp(1rem, 4.5vw, 1.5625rem);
     }
 
     .page-projects .projects-head {
@@ -2697,6 +2718,7 @@ body.page-product .panel {
 @media (max-width: 767px) {
   .page-product {
     height: auto;
+    min-height: 100vh;
     min-height: 100dvh;
     overflow: visible;
     display: block;
@@ -2706,7 +2728,7 @@ body.page-product .panel {
     flex: none;
     display: block;
     padding:
-      clamp(4.75rem, 13vw, 5.75rem)
+      calc(var(--nav-chrome-height) + clamp(0.5rem, 2vh, 1rem))
       clamp(1.5rem, 6vw, 2rem)
       clamp(2rem, 5vh, 3rem);
   }

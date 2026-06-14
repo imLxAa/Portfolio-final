@@ -343,7 +343,7 @@ function restoreDesktopRecentWorkImages() {
 
 function syncRecentWorkScrollAnimations() {
     teardownRecentWorkScrollAnimations();
-    if (window.matchMedia('(max-width: 768px)').matches) {
+    if (window.matchMedia('(max-width: 767px)').matches) {
         swapRecentWorkImagesForMobile();
     } else {
         restoreDesktopRecentWorkImages();
@@ -455,7 +455,7 @@ function initRecentWorkMobileReveal() {
     const viewMore = document.querySelector(".recent-work-actions .view-more");
     if (!section || !viewMore) return;
 
-    const mq = window.matchMedia("(max-width: 768px)");
+    const mq = window.matchMedia("(max-width: 767px)");
 
     viewMore.addEventListener("click", (e) => {
         if (!mq.matches) return;
