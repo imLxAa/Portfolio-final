@@ -15,6 +15,20 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
+function initPageOverflowContainment() {
+    if (document.getElementById("scroll-contain-root")) return;
+
+    const root = document.createElement("div");
+    root.id = "scroll-contain-root";
+
+    [...document.body.children].forEach((child) => {
+        if (child.tagName === "SCRIPT") return;
+        root.appendChild(child);
+    });
+
+    document.body.insertBefore(root, document.body.firstChild);
+}
+
 function getVisibilityRatio(entry) {
     return entry.intersectionRatio;
 }
@@ -656,6 +670,7 @@ function initCircleNav() {
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
+    initPageOverflowContainment();
     initSmoothScroll();
     initNavHide();
     initNavFooterColor();

@@ -93,12 +93,14 @@ $margin-menu: 40px;
     }
 }
 
-html {
-    overflow-x: clip;
-}
-
 body {
     background-color: #fefefe;
+}
+
+#scroll-contain-root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
 }
 
 .slide{
@@ -843,7 +845,8 @@ nav {
 }
 
 .card-img-top{
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
 }
 
 
@@ -1991,8 +1994,28 @@ body.page-product .panel {
         justify-content: center;
         flex-direction: column;
         align-items: center;
-        padding: 120px 120px;
+        padding: var(--section-pad-y) var(--section-pad-x);
         box-sizing: border-box;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .tools-section .gallery {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        column-gap: clamp(1.5rem, 5vw, 2rem) !important;
+        row-gap: clamp(1.75rem, 5vw, 2.25rem) !important;
+        width: 100%;
+        justify-items: center;
+        align-items: start;
+    }
+
+    .tools-section .gallery img,
+    .tools-section .card-img-top {
+        width: 100%;
+        max-width: clamp(4.5rem, 12vw, 6.5rem);
+        height: auto;
+        object-fit: contain;
     }
 
     .recent-work .work-gallery-shell {
