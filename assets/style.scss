@@ -1000,7 +1000,7 @@ nav {
   display: none;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1026px) {
   .projects-back--nav {
     display: none !important;
   }
@@ -2116,79 +2116,9 @@ body.page-product .panel {
         max-width: 100%;
     }
 
-    .main-nav {
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .main-nav > ul {
-        display: none;
-    }
-
-    .projects-back--side {
-        display: none !important;
-    }
-
-    .projects-back--nav {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        align-self: flex-start;
-        margin-top: 12px;
-        width: 2.75rem;
-        height: 2.75rem;
-        padding: 0;
-        border-radius: 50%;
-        @include glass-ui;
-    }
-
-    .projects-back__icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.125rem;
-        line-height: 1;
-    }
-
-    .projects-back--nav:hover {
-        @include glass-ui-hover;
-        transform: translateY(-1px);
-    }
-
-    .main-nav--with-back {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        grid-template-rows: auto auto;
-        align-items: start;
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-        padding: clamp(1rem, 3vw, 1.25rem) clamp(1rem, 4vw, 1.5rem) 0;
-        box-sizing: border-box;
-    }
-
-    .main-nav__start {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-        min-width: 0;
-    }
-
-    .main-nav--with-back #burger {
-        grid-column: 2;
-        grid-row: 1;
-        justify-self: end;
-        align-self: start;
-    }
-
     .page-projects .projects-page {
         padding-top: clamp(5.5rem, 12vh, 7rem);
     }
-
 
     .cross,
     .top-cross,
@@ -2527,8 +2457,51 @@ body.page-product .panel {
     }
 }
 
-/* ——— Mobile uniquement (≤767px) : nav, panel, about, tools ——— */
-@media (max-width: 767px) {
+/* ——— Navbar mobile/tablette (≤1025px) ——— */
+@media (max-width: 1025px) {
+    .main-nav {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main-nav > ul {
+        display: none;
+    }
+
+    .projects-back--side {
+        display: none !important;
+    }
+
+    .projects-back--nav {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 201;
+        top: calc(clamp(1rem, 3vw, 1.25rem) + 1.25rem + 0.75rem + clamp(0.75rem, 3vw, 1.375rem));
+        left: clamp(1rem, 4vw, 1.5rem);
+        margin-top: 0;
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0;
+        border-radius: 50%;
+        @include glass-ui;
+    }
+
+    .projects-back__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.125rem;
+        line-height: 1;
+    }
+
+    .projects-back--nav:hover {
+        @include glass-ui-hover;
+        transform: translateY(-1px);
+    }
+
     nav.main-nav {
         margin: 0;
         padding:
@@ -2595,6 +2568,77 @@ body.page-product .panel {
     .panel-footer {
         flex-shrink: 0;
         width: 100%;
+    }
+}
+
+/* ——— Navbar desktop (≥1026px) ——— */
+@media (min-width: 1026px) {
+    .main-nav > ul {
+        display: flex;
+    }
+
+    nav.main-nav::before {
+        content: none;
+    }
+}
+
+/* ——— Tablette uniquement (768–1025px) : barre blanche bouton retour ——— */
+@media (min-width: 768px) and (max-width: 1025px) {
+    .projects-back--nav {
+        isolation: isolate;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-color: transparent;
+        box-shadow: none;
+    }
+
+    .projects-back--nav::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+        opacity: 1;
+        transition:
+            opacity 0.35s ease,
+            box-shadow 0.35s ease,
+            background-color 0.35s ease;
+        pointer-events: none;
+    }
+
+    .projects-back--nav:hover {
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+    }
+
+    .projects-back--nav:hover::before {
+        background: rgba(255, 255, 255, 0.92);
+        border-color: rgba(0, 0, 0, 0.06);
+        box-shadow: var(--glass-shadow-hover);
+    }
+}
+
+/* ——— Mobile uniquement (≤767px) : about, tools, ajustements retour ——— */
+@media (max-width: 767px) {
+    .projects-back--nav {
+        top: calc(clamp(0.875rem, 3vw, 1.125rem) + 1.25rem + 0.75rem + clamp(1rem, 4.5vw, 1.5625rem));
+        left: clamp(1rem, 4vw, 1.5rem);
+    }
+
+    .page-projects .projects-page {
+        padding-top: clamp(5.5rem, 14vw, 6.75rem);
+    }
+
+    .page-projects .projects-head {
+        margin-top: clamp(0.5rem, 2vh, 0.75rem);
+        scroll-margin-top: 5rem;
     }
 
     .about .left {
