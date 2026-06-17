@@ -46,20 +46,21 @@ function initNavHide() {
 
 function initNavFooterColor() {
     const footer = document.querySelector("#footer");
+    const nav = document.querySelector("nav.main-nav");
     const body = document.body;
 
     if (!footer) return;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            body.classList.toggle("footer-visible", entry.isIntersecting);
-        });
-    }, {
-        threshold: 0.12,
-        rootMargin: "0px",
-    });
+    const update = () => {
+        const navBottom = nav ? nav.getBoundingClientRect().bottom : 72;
+        const footerTop = footer.getBoundingClientRect().top;
+        // Blanc uniquement quand le fond noir du footer est réellement sous la nav
+        body.classList.toggle("footer-visible", footerTop < navBottom);
+    };
 
-    observer.observe(footer);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
 }
 
 // ==========================================
