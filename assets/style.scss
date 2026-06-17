@@ -1263,6 +1263,49 @@ body.page-product .panel {
   max-width: 100%;
 }
 
+.page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel):has(.product-youtube-embed) {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+@media (min-width: 1026px) {
+  .page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel):has(.product-youtube-embed) {
+    flex: 1 1 auto;
+    overflow: hidden;
+    container-type: size;
+    container-name: product-desc;
+  }
+}
+
+.page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel) .product-youtube-embed {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  flex: 0 0 auto;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+@media (min-width: 1026px) {
+  .page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel) .product-youtube-embed {
+    width: min(100%, calc(100cqh * 16 / 9));
+    max-height: 100cqh;
+    margin-inline: auto;
+  }
+}
+
+.page-product .product-page > .row > .col-md-6:last-child > div:not(.carousel) .product-youtube-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .page-product .product-page .carousel {
   position: relative;
   text-align: center;
