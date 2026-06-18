@@ -24,7 +24,7 @@
         </ul>
         <div class="panel-footer">
             <div class="socials">
-                <a href="https://instagram.com/a.l.ks">Instagram</a>
+                <a href="https://www.instagram.com/lxaastudio/">Instagram</a>
                 <a href="https://x.com/LxaaStudio">X</a>
             </div>
             <span class="panel-year">&copy; 2026</span>

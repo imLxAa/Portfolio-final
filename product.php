@@ -28,8 +28,6 @@
         exit();
     }
 
-    require_once "config/youtube-embed.php";
-
 ?>
 
 
@@ -66,7 +64,7 @@
         <div class="col-md-6">
             <h1><?= $don['name'] ?></h1>
             <h4><?= $don['date'] ?></h4>
-            <div><?= product_description_with_youtube_previews($don['description']) ?></div>
+            <div><?= $don['description'] ?></div>
 
 
 

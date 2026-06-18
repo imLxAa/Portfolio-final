@@ -183,7 +183,7 @@
             Graphic Designer
         </h1>
         <div class="footer-links">
-            <a href="https://instagram.com/a.l.ks">Instagram</a>
+            <a href="https://www.instagram.com/lxaastudio/">Instagram</a>
             <span>|</span>
             <a href="https://x.com/LxaaStudio">X</a>
             <span>|</span>
